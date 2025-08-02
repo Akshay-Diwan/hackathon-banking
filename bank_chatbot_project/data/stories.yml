@@ -1,0 +1,199 @@
+version: "3.1"
+
+stories:
+
+- story: happy path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+
+- story: sad path 1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: affirm
+  - action: utter_happy
+
+- story: sad path 2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: deny
+  - action: utter_goodbye
+
+- story: greet and open account
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: open_account
+  - action: utter_open_account
+
+- story: open account direct
+  steps:
+  - intent: open_account
+  - action: utter_open_account
+
+- story: open account with goodbye
+  steps:
+  - intent: open_account
+  - action: utter_open_account
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: greet and apply loan
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: apply_loan
+  - action: utter_apply_loan
+
+- story: apply loan direct
+  steps:
+  - intent: apply_loan
+  - action: utter_apply_loan
+
+- story: loan inquiry with thanks
+  steps:
+  - intent: apply_loan
+  - action: utter_apply_loan
+  - intent: affirm
+  - action: utter_happy
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: greet and check balance
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: check_balance
+  - action: utter_check_balance
+
+- story: check balance direct
+  steps:
+  - intent: check_balance
+  - action: utter_check_balance
+
+- story: balance inquiry with thanks
+  steps:
+  - intent: check_balance
+  - action: utter_check_balance
+  - intent: affirm
+  - action: utter_happy
+
+- story: urgent card blocking
+  steps:
+  - intent: block_card
+  - action: utter_block_card
+
+- story: greet and block card
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: block_card
+  - action: utter_block_card
+
+- story: card block with confirmation
+  steps:
+  - intent: block_card
+  - action: utter_block_card
+  - intent: affirm
+  - action: utter_happy
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: multiple services conversation
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: open_account
+  - action: utter_open_account
+  - intent: apply_loan
+  - action: utter_apply_loan
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: balance then card block
+  steps:
+  - intent: check_balance
+  - action: utter_check_balance
+  - intent: block_card
+  - action: utter_block_card
+
+- story: account opening with loan inquiry
+  steps:
+  - intent: open_account
+  - action: utter_open_account
+  - intent: apply_loan
+  - action: utter_apply_loan
+  - intent: affirm
+  - action: utter_happy
+
+- story: confused user - multiple intents
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: open_account
+  - action: utter_open_account
+  - intent: check_balance
+  - action: utter_check_balance
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: user denies help
+  steps:
+  - intent: open_account
+  - action: utter_open_account
+  - intent: deny
+  - action: utter_goodbye
+
+- story: user asks for loan after balance check
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: check_balance
+  - action: utter_check_balance
+  - intent: apply_loan
+  - action: utter_apply_loan
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: emergency card block immediate
+  steps:
+  - intent: block_card
+  - action: utter_block_card
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: polite account opening
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: open_account
+  - action: utter_open_account
+  - intent: affirm
+  - action: utter_happy
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: banking services overview
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: open_account
+  - action: utter_open_account
+  - intent: check_balance
+  - action: utter_check_balance
+  - intent: apply_loan
+  - action: utter_apply_loan
+  - intent: block_card
+  - action: utter_block_card
+  - intent: goodbye
+  - action: utter_goodbye
