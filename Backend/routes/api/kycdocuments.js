@@ -4,7 +4,8 @@ const {PrismaClient} = require('../../generate/prisma')
 const prisma = new PrismaClient()
 const folders = ["aadhaar", "pan", "photo", "address", "signature"];
 const {v4 : uuid} = require('uuid')
-const fs = require('fs')
+const fs = require('fs');
+const { getCustomerID } = require('../../utils/userInfo');
 folders.forEach(folder => {
   const dir = `./uploads/${folder}`;
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
@@ -27,9 +28,8 @@ router.post(
       has_address_proof,
       address,
       data_of_birth,
-      customer_ID
     } = req.body;
-
+    const customer_ID = getCustomerID(req)
     const files = req.files;
 
     // Validations
@@ -45,6 +45,15 @@ router.post(
 
     // Optional Aadhaar number but should be masked
     if (aadhaar_number && !/^\d{12}$/.test(aadhaar_number)) {
+       logger(
+      {
+        customerId: getCustomerID(req),
+        ipAddress: getClientIP(req),
+        action : "KYC Submission",
+        status : "ERROR", 
+        details : "Invalid Aadhaar number"
+      }
+    )
       return res.status(400).json({ error: "Invalid Aadhaar number." });
     }
     const kyc_ID = uuid()

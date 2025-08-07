@@ -12,11 +12,14 @@ const verifySMPT = require('./routes/api/verifySMTPConnection')
 const kycdocuments = require('./routes/api/kycdocuments')
 const videoKYC = require('./routes/api/videoKYC')
 const connectMongoDb = require('./config/mongodb')
+const reqLogger = require('./middlewares/reqLogger')
 require('dotenv').config()
 // Middleware
 app.use(express.json());
 app.use(cookieParser())
 app.use(express.urlencoded({extended: false}))
+// Request Logging
+app.use(reqLogger)
 // Routes
 app.use('/verifySMTP', verifySMPT)
 app.use('/login', login);

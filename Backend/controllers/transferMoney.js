@@ -1,3 +1,4 @@
+const logger = require('../middlewares/dataLogger')
 const { PrismaClient } = require('../generate/prisma');
 const prisma = new PrismaClient();
 
@@ -55,14 +56,27 @@ const transferMoney = async (req, res) => {
 
       return { sender_account_number, receiver_account_number, amount };
     });
-
+    logger(
+      {
+        action : "TRANSFER MONEY",
+        status : "OK", 
+        details : result
+      }
+    )
     res.status(200).json({
-      message: 'Transfer successful.',
-      details: result
+      "success" : result
     });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: err.message || 'Internal server error.' });
+     logger(
+      {
+        action : "TRANSFER MONEY",
+        status : "ERROR", 
+        details : err
+      }
+    )
+    res.status(500).json({error: 'Internal server error.' });
+     
   }
 }
 
