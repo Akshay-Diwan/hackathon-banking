@@ -11,52 +11,109 @@ intents:
   - open_account      
   - apply_loan        
   - check_balance     
-  - block_card        
+  - block_card
+  - neft_rtgs_info
+  - account_types
+  - loan_types
+  - interest_rates
+  - branch_locator
+  - online_banking
+  - customer_care
 
 responses:
   utter_greet:
-  - text: "Hey! How are you?"
-
-  utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
-
-  utter_did_that_help:
-  - text: "Did that help you?"
-
-  utter_happy:
-  - text: "Great, carry on!"
+  - text: "Hello! Welcome to Bank of Maharashtra. How can I assist you today?"
+  - text: "नमस्ते! बैंक ऑफ महाराष्ट्र में आपका स्वागत है। आज मैं आपकी कैसे सहायता कर सकता हूं?"
+  - text: "नमस्कार! बँक ऑफ महाराष्ट्रात आपले स्वागत आहे। आज मी तुमची कशी मदत करू शकतो?"
+  - text: "નમસ્તે! બેંક ઓફ મહારાષ્ટ્રમાં તમારું સ્વાગત છે. આજે હું તમારી કેવી રીતે મદદ કરી શકું?"
 
   utter_goodbye:
-  - text: "Bye"
+  - text: "Thank you for choosing Bank of Maharashtra. Have a great day!"
+  - text: "बैंक ऑफ महाराष्ट्र चुनने के लिए धन्यवाद। आपका दिन शुभ हो!"
+  - text: "बँक ऑफ महाराष्ट्र निवडल्याबद्दल धन्यवाद। तुमचा दिवस चांगला जावो!"
+  - text: "બેંક ઓફ મહારાષ્ટ્ર પસંદ કરવા બદલ આભાર. તમારો દિવસ સારો રહે!"
 
   utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
+  - text: "I am your Bank of Maharashtra virtual assistant, powered by AI. I'm here to help you with all your banking needs 24/7."
+  - text: "मैं आपका बैंक ऑफ महाराष्ट्र का वर्चुअल असिस्टेंट हूं, AI द्वारा संचालित। मैं 24/7 आपकी बैंकिंग जरूरतों में सहायता के लिए यहां हूं।"
+  - text: "मी तुमचा बँक ऑफ महाराष्ट्राचा व्हर्च्युअल असिस्टंट आहे, AI द्वारे चालित. मी 24/7 तुमच्या बँकिंग गरजांसाठी येथे आहे."
+  - text: "હું તમારો બેંક ઓફ મહારાષ્ટ્રનો વર્ચ્યુઅલ એસિસ્ટન્ટ છું, AI દ્વારા સંચાલિત. હું 24/7 તમારી બેંકિંગ જરૂરિયાતો માટે અહીં છું."
+
+  # Added missing utterances
+  utter_happy:
+  - text: "Great to hear that! I'm glad I could help you with your banking needs."
+  - text: "यह सुनकर खुशी हुई! मुझे खुशी है कि मैं आपकी बैंकिंग जरूरतों में मदद कर सका।"
+  - text: "हे ऐकून आनंद झाला! मला आनंद आहे की मी तुमच्या बँकिंग गरजांमध्ये मदत करू शकलो."
+  - text: "આ સાંભળીને આનંદ થયો! મને ખુશી છે કે હું તમારી બેંકિંગ જરૂરિયાતોમાં મદદ કરી શક્યો."
+
+  utter_cheer_up:
+  - text: "I understand you're not feeling great. Don't worry, I'm here to help you with any banking issues. Is there something specific I can assist you with?"
+  - text: "मैं समझ सकता हूं कि आप अच्छा महसूस नहीं कर रहे। चिंता न करें, मैं आपकी किसी भी बैंकिंग समस्या में मदद के लिए यहां हूं। क्या कोई खास बात है जिसमें मैं आपकी सहायता कर सकूं?"
+  - text: "मला समजते की तुम्हाला बरे वाटत नाही. काळजी करू नका, मी तुमच्या कोणत्याही बँकिंग समस्यांमध्ये मदत करण्यासाठी येथे आहे. काही विशेष गोष्ट आहे का ज्यात मी तुमची मदत करू शकतो?"
+  - text: "હું સમજી શકું છું કે તમે સારું અનુભવતા નથી. ચિંતા કરશો નહીં, હું તમારી કોઈપણ બેંકિંગ સમસ્યામાં મદદ કરવા માટે અહીં છું. કંઈ ખાસ છે જેમાં હું તમારી સહાય કરી શકું?"
+
+  utter_did_that_help:
+  - text: "Did that help answer your question? Is there anything else you'd like to know about Bank of Maharashtra services?"
+  - text: "क्या इससे आपके प्रश्न का उत्तर मिला? क्या बैंक ऑफ महाराष्ट्र की सेवाओं के बारे में कुछ और जानना चाहते हैं?"
+  - text: "यामुळे तुमच्या प्रश्नाचे उत्तर मिळाले का? बँक ऑफ महाराष्ट्राच्या सेवांबद्दल आणखी काही जाणून घ्यायचे आहे का?"
+  - text: "શું તેનાથી તમારા પ્રશ્નનો જવાબ મળ્યો? બેંક ઓફ મહારાષ્ટ્રની સેવાઓ વિશે બીજું કંઈ જાણવું છે?"
 
   utter_open_account:
-  - text: "Welcome to Bank of Maharashtra! I'd be happy to help you open a new account. Here are your options:\n\n🏦 **Account Types Available:**\n• Savings Account\n• Current Account\n• Salary Account\n• Senior Citizen Account\n• Student Account\n\n📋 **Required Documents:**\n• PAN Card\n• Aadhaar Card\n• Address Proof\n• Recent Photograph\n• Initial Deposit (varies by account type)\n\n📍 You can visit any Bank of Maharashtra branch or apply online through our website. Would you like information about a specific account type or the nearest branch location?"
+  - text: "To open a Bank of Maharashtra account, you'll need:\n\n📋 Required Documents:\n• PAN Card\n• Aadhaar Card\n• Address Proof\n• Recent photographs\n• Initial deposit\n\n🏦 Account Types:\n• Savings Account\n• Current Account\n• Salary Account\n• Senior Citizen Account\n\nYou can visit any branch or apply online. Would you like branch locations or more details about specific account types?"
   
-  - text: "Thank you for choosing Bank of Maharashtra! To open a new account, you'll need:\n\n✅ **Essential Documents:**\n• Valid ID proof (Aadhaar/PAN)\n• Address proof\n• Recent passport-size photographs\n• Initial deposit amount\n\n🌟 **Special Features:**\n• Zero balance accounts available\n• Digital banking services\n• Nationwide ATM network\n• Mobile banking app\n\nWould you like me to help you find the nearest branch or provide details about specific account types?"
+  - text: "बैंक ऑफ महाराष्ट्र में खाता खोलने के लिए आपको चाहिए:\n\n📋 आवश्यक दस्तावेज:\n• पैन कार्ड\n• आधार कार्ड\n• पता प्रमाण\n• हाल की तस्वीरें\n• प्रारंभिक जमा\n\n🏦 खाते के प्रकार:\n• बचत खाता\n• चालू खाता\n• सैलरी खाता\n• वरिष्ठ नागरिक खाता\n\nआप किसी भी शाखा में जा सकते हैं या ऑनलाइन आवेदन कर सकते हैं। क्या आपको शाखा का पता या खाते के प्रकार की अधिक जानकारी चाहिए?"
 
   utter_apply_loan:
-  - text: "Bank of Maharashtra offers various loan products to meet your financial needs:\n\n💰 **Available Loans:**\n• Personal Loan (up to ₹20 lakhs)\n• Home Loan (attractive interest rates)\n• Car Loan (up to 100% financing)\n• Education Loan\n• Business Loan\n• Gold Loan\n\n📊 **Quick Benefits:**\n• Competitive interest rates\n• Minimal documentation\n• Quick approval process\n• Flexible repayment options\n\n📞 For loan applications, please visit our branch with your documents or call our loan helpline. Which type of loan are you interested in?"
+  - text: "Bank of Maharashtra offers various loan products:\n\n💰 Available Loans:\n• Personal Loan (up to ₹20 lakhs)\n• Home Loan (competitive rates)\n• Car Loan (up to 100% financing)\n• Education Loan\n• Business Loan\n• Gold Loan\n\n📊 Benefits:\n• Quick approval\n• Minimal documentation\n• Competitive interest rates\n• Flexible repayment\n\n📞 Visit nearest branch or call our loan helpline. Which type of loan interests you?"
 
-  - text: "Great choice! Bank of Maharashtra provides loans with competitive rates and easy processes:\n\n🏠 **Home Loans:** Starting from 8.50% p.a.\n👤 **Personal Loans:** Quick approval, minimal paperwork\n🚗 **Vehicle Loans:** Up to 85% financing\n🎓 **Education Loans:** Support your dreams\n\n📋 **Basic Requirements:**\n• Income proof\n• Identity & address proof\n• Bank statements\n• Property documents (for secured loans)\n\nVisit your nearest BOM branch or apply online. Need help with a specific loan type?"
+  - text: "बैंक ऑफ महाराष्ट्र विभिन्न लोन प्रोडक्ट्स प्रदान करता है:\n\n💰 उपलब्ध लोन:\n• पर्सनल लोन (₹20 लाख तक)\n• होम लोन (प्रतिस्पर्धी दरें)\n• कार लोन (100% तक फाइनेंसिंग)\n• एजुकेशन लोन\n• बिजनेस लोन\n• गोल्ड लोन\n\n📊 लाभ:\n• त्वरित अप्रूवल\n• न्यूनतम दस्तावेज\n• प्रतिस्पर्धी ब्याज दरें\n• लचीली चुकौती\n\n📞 नजदीकी शाखा में जाएं या हमारी लोन हेल्पलाइन पर कॉल करें। आपको कौन सा लोन चाहिए?"
 
   utter_check_balance:
-  - text: "To check your Bank of Maharashtra account balance, you have several convenient options:\n\n📱 **Mobile Banking:**\n• Download 'BOM Mobile Banking' app\n• Login with your credentials\n• View balance instantly\n\n💻 **Internet Banking:**\n• Visit www.bankofmaharashtra.in\n• Login to NetBanking\n• Check account summary\n\n📞 **SMS Banking:**\n• Send SMS 'BAL' to 9222281818\n• Get instant balance info\n\n🏧 **ATM:** Visit any Bank of Maharashtra ATM\n☎️ **Phone Banking:** Call 1800-233-4526\n\nFor security reasons, I cannot display your actual balance here. Please use any of these secure methods."
-
-  - text: "I understand you want to check your account balance with Bank of Maharashtra. Here are your options:\n\n🔐 **Secure Methods Available:**\n\n1️⃣ **BOM Mobile App** - Most convenient\n2️⃣ **Internet Banking** - Available 24/7\n3️⃣ **SMS to 9222281818** - Type 'BAL' \n4️⃣ **ATM Balance Inquiry** - Any BOM ATM\n5️⃣ **Missed Call** - Give a missed call to balance inquiry number\n6️⃣ **Visit Branch** - Get printed statement\n\n⚠️ **Security Note:** Never share your login credentials with anyone. For your protection, I cannot access your actual account balance through this chat.\n\nWhich method would you prefer to use?"
+  - text: "You can check your Bank of Maharashtra account balance through:\n\n📱 Mobile Banking:\n• Download BOM Mobile Banking app\n• Login with credentials\n• View balance instantly\n\n💻 Internet Banking:\n• Visit www.bankofmaharashtra.in\n• NetBanking login\n\n📞 SMS Banking:\n• Send 'BAL' to 9222281818\n\n🏧 ATM: Any BOM ATM\n☎️ Phone Banking: 1800-233-4526\n\nFor security, I cannot display your actual balance. Please use these secure methods."
 
   utter_block_card:
-  - text: "🚨 **URGENT - Card Blocking Service**\n\nI understand you need to block your Bank of Maharashtra card immediately. Here's what to do:\n\n📞 **Immediate Action - Call Now:**\n• **24/7 Helpline:** 1800-233-4526\n• **Customer Care:** 020-26174011\n\n📱 **Through Mobile Banking:**\n• Login to BOM Mobile Banking app\n• Go to 'Card Services'\n• Select 'Block Card'\n• Follow the instructions\n\n🏦 **Visit Branch:**\n• Carry valid ID proof\n• Fill card blocking form\n• Get acknowledgment receipt\n\n⚡ **Important:** \n• Block your card immediately to prevent misuse\n• Note down the reference number\n• Apply for replacement card\n• Monitor your account for unauthorized transactions\n\n**Your card security is our priority!**"
+  - text: "🚨 URGENT - Card Blocking Service\n\nFor immediate card blocking:\n\n📞 Call Now:\n• 24/7 Helpline: 1800-233-4526\n• Customer Care: 020-26174011\n\n📱 Mobile Banking:\n• Login to BOM app\n• Go to 'Card Services'\n• Select 'Block Card'\n\n🏦 Visit Branch with:\n• Valid ID proof\n• Account details\n\n⚡ Important:\n• Block immediately to prevent misuse\n• Note reference number\n• Apply for replacement card\n\nYour card security is our priority!"
 
-  - text: "**CARD BLOCKING - Bank of Maharashtra**\n\n🔒 For immediate card blocking, please:\n\n**STEP 1 - Immediate Action:**\n📞 Call: 1800-233-4526 (24/7 Toll-free)\n📞 Alternative: 020-26174011\n\n**STEP 2 - Confirm Block:**\n• Provide your card number\n• Verify your identity\n• Get reference number\n\n**STEP 3 - Follow-up:**\n🏦 Visit nearest BOM branch with:\n• Valid ID proof\n• Account details\n• Police complaint (if stolen)\n\n**STEP 4 - Replacement:**\n• Apply for new card\n• Update any auto-debits\n• Change ATM PIN when received\n\n⚠️ **Act fast to prevent unauthorized use!**\nKeep your reference number safe for future correspondence."
+  utter_neft_rtgs_info:
+  - text: "NEFT vs RTGS - Money Transfer Options:\n\n🔄 NEFT (National Electronic Funds Transfer):\n• Amount: ₹1 to ₹10 lakhs\n• Timing: Hourly batches (8 AM to 7 PM)\n• Settlement: Takes 2-3 hours\n• Charges: Lower fees\n\n⚡ RTGS (Real Time Gross Settlement):\n• Amount: ₹2 lakhs and above\n• Timing: Real-time (9 AM to 4:30 PM)\n• Settlement: Immediate\n• Charges: Higher fees\n\n💡 Choose NEFT for smaller amounts, RTGS for urgent large transfers. Both available through NetBanking, Mobile Banking, or branch visits."
 
+  utter_account_types:
+  - text: "Bank of Maharashtra Account Types:\n\n💰 Savings Account:\n• For individuals\n• Interest earning\n• Minimum balance required\n\n🏢 Current Account:\n• For businesses\n• No interest\n• Higher minimum balance\n• Unlimited transactions\n\n💼 Salary Account:\n• For salaried employees\n• Zero/Low minimum balance\n• Additional benefits\n\n👴 Senior Citizen Account:\n• For 60+ age group\n• Higher interest rates\n• Special benefits\n\n🎓 Student Account:\n• For students\n• Zero balance\n• Educational benefits\n\nWhich account type suits your needs?"
 
+  utter_loan_types:
+  - text: "Bank of Maharashtra Loan Products:\n\n🏠 Home Loan:\n• Up to ₹10 crores\n• Starting 8.50% p.a.\n• Up to 30 years tenure\n\n👤 Personal Loan:\n• Up to ₹20 lakhs\n• Quick approval\n• Minimal documentation\n\n🚗 Vehicle Loan:\n• Cars, two-wheelers\n• Up to 85% financing\n• Competitive rates\n\n🎓 Education Loan:\n• Study in India/abroad\n• Up to ₹1.5 crores\n• Moratorium period\n\n💼 Business Loan:\n• Working capital\n• Term loans\n• MSME support\n\n✨ Gold Loan:\n• Against gold ornaments\n• Quick processing\n• Attractive rates\n\nWhich loan interests you?"
+
+  utter_interest_rates:
+  - text: "Current Bank of Maharashtra Interest Rates:\n\n💰 Savings Account:\n• Regular: 3.00% - 3.50% p.a.\n• Senior Citizens: 3.50% - 4.00% p.a.\n\n🏠 Home Loan:\n• Starting from 8.50% p.a.\n• Varies based on profile\n\n👤 Personal Loan:\n• 10.75% - 16.00% p.a.\n• Based on eligibility\n\n💎 Fixed Deposit:\n• 1 year: 5.50% - 6.50% p.a.\n• Senior Citizens: Additional 0.50%\n\n🚗 Car Loan:\n• Starting from 8.70% p.a.\n\n📈 Rates subject to change. Visit branch for current rates and personalized quotes."
+
+  utter_branch_locator:
+  - text: "Find Bank of Maharashtra Branches:\n\n🌐 Online Branch Locator:\n• Visit www.bankofmaharashtra.in\n• Click 'Branch Locator'\n• Enter your city/PIN code\n\n📱 Mobile App:\n• Download BOM Mobile Banking\n• Use 'Locate Us' feature\n• GPS-based nearest branches\n\n☎️ Customer Care:\n• Call 1800-233-4526\n• Get branch addresses\n• Working hours information\n\n🏧 ATM Locator:\n• 4000+ ATMs nationwide\n• Available in app and website\n\nWould you like me to help you find branches in a specific city?"
+
+  utter_online_banking:
+  - text: "Bank of Maharashtra Digital Banking Services:\n\n📱 Mobile Banking App:\n• Account balance & statements\n• Fund transfers (NEFT/RTGS/IMPS)\n• Bill payments & recharges\n• Card management\n• Investment services\n\n💻 Internet Banking:\n• Complete banking online\n• Bulk payments\n• Standing instructions\n• Tax payments\n• Trade services\n\n🎯 Registration Process:\n• Visit nearest branch\n• Fill application form\n• Get login credentials\n• Activate online\n\n🔐 Security Features:\n• Two-factor authentication\n• SMS alerts\n• Session timeout\n• Secure encryption\n\nWould you like help with registration or specific features?"
+
+  utter_customer_care:
+  - text: "Bank of Maharashtra Customer Support:\n\n📞 Customer Care Numbers:\n• Toll-Free: 1800-233-4526\n• Alternate: 020-26174011\n• Email: customercare@bankofmaharashtra.in\n\n🕒 Working Hours:\n• Monday to Saturday: 10 AM to 6 PM\n• Emergency: 24/7 card blocking\n\n💬 Other Channels:\n• WhatsApp Banking: Available\n• Social Media: Facebook, Twitter\n• Branch visit: Personal assistance\n\n📝 For Complaints:\n• Online complaint portal\n• Banking Ombudsman\n• Nodal Officer contact\n\n🔧 Services Available:\n• Account queries\n• Transaction disputes\n• Card issues\n• Technical support\n\nHow can I help you connect with the right department?"
+
+actions:
+  - utter_greet
+  - utter_goodbye
+  - utter_iamabot
+  - utter_happy
+  - utter_cheer_up
+  - utter_did_that_help
+  - utter_open_account
+  - utter_apply_loan
+  - utter_check_balance
+  - utter_block_card
+  - utter_neft_rtgs_info
+  - utter_account_types
+  - utter_loan_types
+  - utter_interest_rates
+  - utter_branch_locator
+  - utter_online_banking
+  - utter_customer_care
 
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
-
-
