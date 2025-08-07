@@ -1,11 +1,12 @@
 const { PrismaClient } = require('../generate/prisma');
+const { getCustomerID } = require('../utils/userInfo');
 const prisma = new PrismaClient();
 
 const showDashboard = async (req, res) => {
-  const { customer_ID } = req.body;
-
+  const customer_ID = getCustomerID(req);
   if (!customer_ID) {
     return res.status(400).json({ error: 'customer_ID is required.' });
+    
   }
 
   try {
@@ -21,6 +22,15 @@ const showDashboard = async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error.' });
+     logger(
+      {
+        customerId: customer_ID,
+        ipAddress: getClientIP(req),
+        action : "SHOW DASHBOARD",
+        status : "ERROR", 
+        details : err
+      }
+    )
   }
 };
 

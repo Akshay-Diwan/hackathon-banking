@@ -40,8 +40,8 @@ model Account {
   balance       Float         @default(0.0)
   branch        String 
   ifscCode      String
-  userId        String
-  user          User          @relation(fields: [userId], references: [customerId])
+  customerId        String
+  user          User          @relation(fields: [customerId], references: [customerId])
   transactionsSent     Transaction[] @relation("SentTransactions")
   transactionsReceived Transaction[] @relation("ReceivedTransactions")
   createdAt     DateTime      @default(now())
@@ -61,7 +61,41 @@ model Transaction {
   fromAccount     Account    @relation("SentTransactions", fields: [fromAccountId], references: [id])
   toAccount       Account    @relation("ReceivedTransactions", fields: [toAccountId], references: [id])
 }
+model Log {
+  id         String   @id @default(uuid())
+  customerId     String?                      // Optional if some logs are system-level
+  action     String                      // e.g., "LOGIN", "TRANSFER", "CREATE_ACCOUNT"
+  details    Json?                       // Optional structured details
+  ipAddress  String?
+  createdAt  DateTime @default(now())
+  
+  @@index([customerId])
+  @@index([action])
+  @@index([createdAt])
+}
+model RequestLog {
+  id           String   @id @default(uuid())
+  customerId       String?  // Nullable if unauthenticated
+  method       String
+  path         String
+  statusCode   Int
+  ipAddress    String?
+  userAgent    String?
+  origin       String?
+  responseTime Int      // in milliseconds
+  error        String?  // Optional error message
+  createdAt    DateTime @default(now())
 
+  @@index([customerId])
+  @@index([createdAt])
+  @@index([method])
+}
+model Quiz {
+  id  String @id @default(uuid())
+  question String
+  correctOption String
+  incorrectOptions String[]
+}
 enum AccountType {
   SAVINGS
   CURRENT

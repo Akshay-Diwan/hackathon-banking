@@ -1,0 +1,3 @@
+venv/
+.rasa/cache/
+__pycache__/

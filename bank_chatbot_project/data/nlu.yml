@@ -1,0 +1,125 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+
+- intent: goodbye
+  examples: |
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+
+- intent: affirm
+  examples: |
+    - yes
+    - y
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+
+- intent: deny
+  examples: |
+    - no
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+
+- intent: mood_great
+  examples: |
+    - perfect
+    - great
+    - amazing
+    - feeling like a king
+    - wonderful
+    - I am feeling very good
+    - I am great
+    - I am amazing
+    - I am going to save the world
+    - super stoked
+    - extremely good
+    - so so perfect
+    - so good
+    - so perfect
+
+- intent: mood_unhappy
+  examples: |
+    - my day was horrible
+    - I am sad
+    - I don't feel very well
+    - I am disappointed
+    - super sad
+    - I'm so sad
+    - sad
+    - very sad
+    - unhappy
+    - not good
+    - not very good
+    - extremly sad
+    - so saad
+    - so sad
+
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
+
+- intent: open_account
+  examples: |
+    - I want to open a bank account
+    - How to open a savings account?
+    - Help me with new account
+    - Nawa account kasa ughadaycha? # Marathi
+    - Mane account kholvu che # Gujarati
+    
+- intent: apply_loan
+  examples: |
+    - I want to apply for a loan
+    - Can I get a personal loan?
+    - Loan chahiye mujhe
+    - I need the loan form
+    - Mala loan have aahe.  # Marathi
+    - Mari loan ni jarur chhe  # Gujarati
+
+- intent: check_balance
+  examples: |
+    - How much is my account balance?
+    - Can you tell me my account balance?
+    - Majha account balance kay aahe?  # Marathi
+    - Mari account ni balance kai chhe?  # Gujarati
+
+- intent: block_card
+  examples: |
+    - Block my ATM card
+    - My card is lost
+    - I want to block my debit card
+    - How do I block my credit card?
+    - Majha card haravla aahe. Kay karu? # Marathi
+    - Majha card block karaycha aahe # Marathi
+    - Mari card block karvu chhe # Gujarati
