@@ -91,138 +91,6 @@ const PaymentTransfer = () => {
     <div>
        <AdminTitle text="Payment Transfer" description=" Experience seamless and secure fund transfers for all purposes — personal, educational, professional, or social.
          From tuition fees to monthly rent, handle every transaction with confidence and clarity."/>
-    {/*<form onSubmit={handleSubmit} className="flex flex-col">
-      <div className="border-t border-gray-200 payment-transfer_form-item pb-6 pt-5">
-        <div className="payment-transfer_form-content">
-          <label className="text-14 font-medium text-gray-700">
-            Select Source Bank
-          </label>
-          <p className="text-12 font-normal text-gray-600">
-            Select the bank account you want to transfer funds from
-          </p>
-        </div>
-        <div className="flex w-full flex-col">
-          <select
-            name="senderBank"
-            value={formData.senderBank}
-            onChange={handleChange}
-            className="!w-full input-class"
-          >
-            <option value="">Select Bank</option>
-            {accounts.map((acc, idx) => (
-              <option key={idx} value={acc.id}>
-                {acc.name}
-              </option>
-            ))}
-          </select>
-          {errors.senderBank && (
-            <span className="text-12 text-red-500">{errors.senderBank}</span>
-          )}
-        </div>
-      </div>
-
-      <div className="border-t border-gray-200 payment-transfer_form-item pb-6 pt-5">
-        <div className="payment-transfer_form-content">
-          <label className="text-14 font-medium text-gray-700">
-            Transfer Note (Optional)
-          </label>
-          <p className="text-12 font-normal text-gray-600">
-            Please provide any additional information or instructions related to
-            the transfer
-          </p>
-        </div>
-        <div className="flex w-full flex-col">
-          <textarea
-            name="name"
-            placeholder="Write a short note here"
-            className="input-class"
-            value={formData.name}
-            onChange={handleChange}
-          />
-          {errors.name && (
-            <span className="text-12 text-red-500">{errors.name}</span>
-          )}
-        </div>
-      </div>
-
-      <div className="payment-transfer_form-details">
-        <h2 className="text-18 font-semibold text-gray-900">
-          Bank account details
-        </h2>
-        <p className="text-16 font-normal text-gray-600">
-          Enter the bank account details of the recipient
-        </p>
-      </div>
-
-      <div className="border-t border-gray-200 payment-transfer_form-item py-5">
-        <label className="text-14 w-full max-w-[280px] font-medium text-gray-700">
-          Recipient&apos;s Email Address
-        </label>
-        <div className="flex w-full flex-col">
-          <input
-            type="email"
-            name="email"
-            placeholder="ex: johndoe@gmail.com"
-            className="input-class"
-            value={formData.email}
-            onChange={handleChange}
-          />
-          {errors.email && (
-            <span className="text-12 text-red-500">{errors.email}</span>
-          )}
-        </div>
-      </div>
-
-      <div className="border-t border-gray-200 payment-transfer_form-item pb-5 pt-6">
-        <label className="text-14 w-full max-w-[280px] font-medium text-gray-700">
-          Receiver&apos;s Plaid Sharable Id
-        </label>
-        <div className="flex w-full flex-col">
-          <input
-            name="sharableId"
-            placeholder="Enter the public account number"
-            className="input-class"
-            value={formData.sharableId}
-            onChange={handleChange}
-          />
-          {errors.sharableId && (
-            <span className="text-12 text-red-500">{errors.sharableId}</span>
-          )}
-        </div>
-      </div>
-
-      <div className="border-y border-gray-200 payment-transfer_form-item py-5">
-        <label className="text-14 w-full max-w-[280px] font-medium text-gray-700">
-          Amount
-        </label>
-        <div className="flex w-full flex-col">
-          <input
-            name="amount"
-            placeholder="ex: 5.00"
-            className="input-class"
-            value={formData.amount}
-            onChange={handleChange}
-          />
-          {errors.amount && (
-            <span className="text-12 text-red-500">{errors.amount}</span>
-          )}
-        </div>
-      </div>
-
-      <div className="payment-transfer_btn-box">
-        <button type="submit" className="payment-transfer_btn">
-          {isLoading ? (
-            <>
-              <span className="animate-spin">⏳</span> &nbsp; Sending...
-            </>
-          ) : (
-            "Transfer Funds"
-          )}
-        </button>
-      </div>
-    </form>
-*/}
-
 
     <div className="flex justify-center items-center gap-2 text-blue-600 mt-10">
         <HandCoins size={28} strokeWidth={2.2} />
@@ -243,7 +111,7 @@ const PaymentTransfer = () => {
         key={id}
         onClick={() => {
            setSelectedCategory(id); 
-           navigate(`/admin/payment-transfer/${id}`); 
+           navigate(`/admin/payment-transfer/${id}/payment-select`); 
          }}
         className={`group cursor-pointer p-6 rounded-2xl border-2 transition-all duration-300 transform hover:-translate-y-1 hover:scale-[1.02]
           bg-white shadow-md hover:shadow-xl hover:${colorClass} 

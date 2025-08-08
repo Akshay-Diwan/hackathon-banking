@@ -184,7 +184,7 @@ function DocumentVerification() {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex justify-between mt-1">
+        <div className="fex justify-between mt-1">
           <button 
           onClick={handleBack}
           className="bg-gray-300 text-gray-800 px-6 py-2 rounded hover:bg-gray-400">

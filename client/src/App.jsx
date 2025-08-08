@@ -37,6 +37,13 @@ import SubmitNewAccountForm from './pages/OpenAccount/SavingAccount/SubmitNewAcc
 import ChatBot from './components/ChatBot';
 import AskForVkyc from './pages/Kyc/AskForVkyc';
 import ScheduleVkyc from './pages/Kyc/ScheduleVkyc';
+import PaymentOptions from './pages/admin/Payment/PaymentOption';
+import UpiPayment from './components/admin/Payment/UpiPayment';
+import NetBankingPayment from './components/admin/Payment/NetBankingPayment';
+import CreditCardPayment from './components/admin/Payment/CreditCardPayment';
+import DebitCardPayment from './components/admin/Payment/DebitCardPayment';
+import PaymentSuccess from './components/admin/Payment/PaymentSuccess';
+import LoadingPage from './components/LoadingPage';
 import PageNotFound from './pages/pageNotFound';
 
 function App() {
@@ -65,6 +72,7 @@ function App() {
          <Route path = '/login' element = {<UserLogin/>} />
          <Route path = '/email-verify' element = {<EmailVerify/>} />
          <Route path = '/locate-us' element = {<LocateUs/>} />
+         <Route path = '/loading' element = {<LoadingPage/>} />
          
          <Route path="/new-account" >
           <Route index element={<SelectNewAccount />}/>
@@ -96,6 +104,11 @@ function App() {
           <Route path="help-support" element={<HelpSupport/>} />
           <Route path="payment-transfer" element={<PaymentTransfer/>} />
           <Route path="payment-transfer/personal" element={<PersonalPayment/>} />
+          <Route path="payment-transfer/:id/payment-select" element={<PaymentOptions/>} />
+          <Route path="payment-transfer/:id/upi" element={<UpiPayment/>} />
+          <Route path="payment-transfer/:id/net-banking" element={<NetBankingPayment/>} />
+          <Route path="payment-transfer/:id/credit-payment" element={<CreditCardPayment/>} />
+          <Route path="payment-transfer/payment-success" element={<PaymentSuccess/>} />
           <Route path="loan-emi" element={<LoanEmi/>} />
           <Route path="manage-cards" element={<ManageCards/>} />
           <Route path="transactions" element={<Transactions />} />

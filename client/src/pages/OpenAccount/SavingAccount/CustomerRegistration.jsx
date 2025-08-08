@@ -101,16 +101,8 @@ export function CustomerRegistration() {
   if (!verifyOpt) {
     return toast.error("Please verify OTP before proceeding.");
   }
-
-    if (!verifyOpt) {
-      return toast.error("OTP was not verified");
-    }
-
     
     updateSection("registration", form);
-
-    
-    console.log("Form saved to context:", form);
     toast.success("Customer registration saved!");
     navigate('/new-account/basic-savings/documents');
   };

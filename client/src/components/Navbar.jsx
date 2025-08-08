@@ -162,7 +162,7 @@ const Navbar = () => {
         <ul className="py-2 text-sm text-gray-700">
           <li>
             <a
-              href="/admin/settings/profile"
+              href="/admin"
               className="flex items-center gap-3 px-4 py-2 hover:bg-gray-50"
             >
               <UserCircleIcon className="w-4 h-4 text-blue-500" />

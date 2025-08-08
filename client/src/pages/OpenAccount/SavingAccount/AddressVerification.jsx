@@ -59,7 +59,7 @@ function AddressVerification() {
 
   return (
     <div>
-      <AccountProgressTracker currentStep={2} />
+      <AccountProgressTracker  />
       <div className="max-w-3xl mb-4 mx-auto px-6 py-5 bg-white rounded-lg shadow-md border mt-3">
         <h2 className="text-2xl font-bold text-blue-700 mb-6 border-b pb-2">
           Address Verification
