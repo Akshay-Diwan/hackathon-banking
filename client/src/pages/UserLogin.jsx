@@ -1,49 +1,51 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState , useContext} from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { assets } from '../assets/assets'
 import {toast} from 'react-hot-toast'
 import axios from 'axios'
+import { AppContext } from "../context/AppContext";
+
+
 const UserLogin = () => {
+  const { backendUrl} = useContext(AppContext);
+  const navigate = useNavigate();
   const [type, setType] = useState('sign-in')
   const [isLoading, setIsLoading] = useState(false)
 
   // Common fields
-  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-
+  const [phone, setPhone] = useState('')
   // Sign-up only fields
+  const [email, setEmail] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
-  const [address1, setAddress1] = useState('')
-  const [city, setCity] = useState('')
-  const [stateField, setStateField] = useState('')
-  const [postalCode, setPostalCode] = useState('')
-  const [dateOfBirth, setDateOfBirth] = useState('')
-  const [ssn, setSSN] = useState('')
+
 
   
   const handleSubmit = async (e) => {
   e.preventDefault();
   setIsLoading(true);
+  console.log("clicked submit....")
 
   try {
     const formData = {
-      email,
+      phone,
       password,
       ...(type === 'sign-up' && {
-        firstName,
-        lastName,
-        address1,
-        city,
-        state: stateField,
-        postalCode,
-        dateOfBirth,
-        ssn,
+        name: firstName + " "+ lastName,
+        email
+        // address1,
+        // city,
+        // state: stateField,
+        // postalCode,
+        // dateOfBirth,
+        // ssn,
       }),
     };
-
+    
     const {data} = await axios.post(
-      "http://localhost:4000/api/auth/request-otp",
+
+      (type === 'sign-up')?backendUrl + "/createUser/details": backendUrl +"/login",
       formData,
       { withCredentials: true }
     );
@@ -54,11 +56,13 @@ const UserLogin = () => {
       toast.error("Failed to send OTP");
     }
   } catch (err) {
+
     console.error(err);
     toast.error("Something went wrong");
   } finally {
     setIsLoading(false);
   }
+
 };
 
   return (
@@ -109,92 +113,7 @@ const UserLogin = () => {
           />
         </div>
       </div>
-
-      <div>
-        <label htmlFor="address1" className="block mb-1 text-sm font-medium text-gray-700">
-          Address
-        </label>
-        <input
-          id="address1"
-          value={address1}
-          onChange={(e) => setAddress1(e.target.value)}
-          placeholder="Address"
-          className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-      </div>
-
-      <div>
-          <label htmlFor="stateField" className="block mb-1 text-sm font-medium text-gray-700">
-            State
-          </label>
-          <input
-            id="stateField"
-            value={stateField}
-            onChange={(e) => setStateField(e.target.value)}
-            placeholder="State"
-            className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-
-      <div className="flex gap-4">
-        <div>
-        <label htmlFor="city" className="block mb-1 text-sm font-medium text-gray-700">
-          City
-        </label>
-        <input
-          id="city"
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-          placeholder="City"
-          className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-       </div>  
-      
-        <div className="w-1/2">
-          <label htmlFor="postalCode" className="block mb-1 text-sm font-medium text-gray-700">
-            Postal Code
-          </label>
-          <input
-            id="postalCode"
-            value={postalCode}
-            onChange={(e) => setPostalCode(e.target.value)}
-            placeholder="Postal Code"
-            className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-      </div>
-
-      <div className="flex gap-4">
-        <div className="w-1/2">
-          <label htmlFor="dateOfBirth" className="block mb-1 text-sm font-medium text-gray-700">
-            Date of Birth
-          </label>
-          <input
-            id="dateOfBirth"
-            value={dateOfBirth}
-            onChange={(e) => setDateOfBirth(e.target.value)}
-            placeholder="YYYY-MM-DD"
-            className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-
-        <div className="w-1/2">
-          <label htmlFor="ssn" className="block mb-1 text-sm font-medium text-gray-700">
-            SSN (e.g. 1234)
-          </label>
-          <input
-            id="ssn"
-            value={ssn}
-            onChange={(e) => setSSN(e.target.value)}
-            placeholder="SSN"
-            className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-      </div>
-    </>
-  )}
-
-  <div>
+       <div>
     <label htmlFor="email" className="block mb-1 text-sm font-medium text-gray-700">
       Email
     </label>
@@ -207,6 +126,24 @@ const UserLogin = () => {
       className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
     />
   </div>
+
+  
+    </>
+  )}
+ <div>
+    <label htmlFor="phone" className="block mb-1 text-sm font-medium text-gray-700">
+      Phone No.
+    </label>
+    <input
+      id="phone"
+      value={phone}
+      onChange={(e) => setPhone(e.target.value)}
+      type="number"
+      placeholder="XXXX-XXX-XXX"
+      className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
+  </div>
+ 
 
   <div>
     <label htmlFor="password" className="block mb-1 text-sm font-medium text-gray-700">

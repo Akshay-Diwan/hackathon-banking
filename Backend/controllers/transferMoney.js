@@ -3,7 +3,7 @@ const { PrismaClient } = require('../generate/prisma');
 const prisma = new PrismaClient();
 
 const transferMoney = async (req, res) => {
-  const { amount, payment_method, sender_account_number, receiver_account_number, message, type } = req.body;
+  const { amount, payment_method, sender_account_number, receiver_account_number, message, type, otp } = req.body;
 
   if (!amount || !payment_method || !sender_account_number || !receiver_account_number || !type) {
     return res.status(400).json({ error: 'Missing required fields.' });

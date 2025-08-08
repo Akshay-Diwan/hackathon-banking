@@ -78,7 +78,6 @@ model RequestLog {
   customerId       String?  // Nullable if unauthenticated
   method       String
   path         String
-  statusCode   Int
   ipAddress    String?
   userAgent    String?
   origin       String?

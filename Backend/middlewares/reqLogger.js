@@ -1,5 +1,5 @@
 const { PrismaClient } = require('../generate/prisma')
-const prisma = PrismaClient()
+const prisma = new PrismaClient()
 const {getClientIP, getCustomerID} = require('../utils/userInfo')
 const handleLogEvent = async ({customerId,
   method,
@@ -36,7 +36,6 @@ const reqLogger = async (req, res, next) => {
         customerId : getCustomerID(req),
         method: req.method,
         path: req.url,
-        statusCode: req.statusCode,
         origin: req.headers.origin,
         ipAddress: clientIP,
         userAgent: req.headers['user-agent'],

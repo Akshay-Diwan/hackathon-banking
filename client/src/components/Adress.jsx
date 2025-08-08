@@ -1,6 +1,6 @@
 import React from 'react'
 
-const kyc = () => {
+const Adress = () => {
   return (
     <div>
       
@@ -8,4 +8,4 @@ const kyc = () => {
   )
 }
 
-export default kyc;
+export default Adress

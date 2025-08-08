@@ -1,4 +1,8 @@
 import { Wallet, ArrowDown, ArrowUp, TrendingUp } from 'lucide-react';
+import { useState, useContext } from 'react';
+import { AppContext } from '../../context/AppContext';
+import axios from 'axios'
+import { useEffect } from 'react';
 
 const overviewData = [
   {
@@ -28,6 +32,16 @@ const overviewData = [
 ];
 
 const TotalBalance = () => {
+  axios.defaults.withCredentials = true;
+  const [balance, setBalance] = useState('')
+const {backendUrl} = useContext(AppContext)
+//   useEffect( async ()=>{
+//     const {data} = await axios.get(
+//     backendUrl + '/getBalance',
+//     {withCredentials : true}
+//   )
+//   setBalance(data.balance)
+// }, [])
   return (
     <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-4 w-full">
       {overviewData.map((item, index) => (

@@ -1,18 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import AdminTitle from '../../../components/admin/AdminTitle';
-
+import axios from 'axios'
+import { AppContext } from '../../../context/AppContext';
 const PersonalPayment = () => {
+  axios.defaults.withCredentials = true;
     const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
-    friendName: '',
-    accountOrUpi: '',
-    bankName: '',
+    receiver_account_number: '',
     ifsc: '',
-    contact: '',
     amount: '',
-    transferType: 'UPI',
+    payment_method: 'UPI',
     message: '',
-    transferMode: 'instant',
     otp: ''
   });
 
@@ -24,13 +22,25 @@ const PersonalPayment = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    
+    const {backendUrl} = useContext(AppContext)
+    await axios.post(
+      backendUrl + '/transfer',
+      formData,
+      {withCredentials : true}
+    )
      await new Promise((resolve) => setTimeout(resolve, 2000));
 
     console.log('Form submitted:', formData);
 
     setIsLoading(false);// trigger parent logic
   };
+  const sendOtp = async () => {
+    await axios.get(
+      backendUrl + '/requestOtp',
+      formData,
+      {withCredentials : true}
+    )
+  }
 
   return (
     <div>
@@ -42,23 +52,23 @@ const PersonalPayment = () => {
         <div className="space-y-4 border border-gray-300 p-5 rounded-md bg-gray-50">
         <h3 className="text-lg font-semibold text-gray-700 mb-2">Recipient Details</h3>
         
-      <div className='flex max-md:flex-col gap-2 items-center'>
+      {/* <div className='flex max-md:flex-col gap-2 items-center'>
         <label className="block text-[16px] w-50 max-md:ml-[-120px] font-medium text-gray-500">Full Name :-</label>
         <input name="friendName" value={formData.friendName} onChange={handleChange}
           required className="input w-full p-2 outline-none text-[15px] border border-gray-700/40 rounded " placeholder="e.g. Rahul Sharma" />
-      </div>
+      </div> */}
 
       <div className='flex max-md:flex-col gap-2 items-center'>
         <label className="block text-[16px] w-50 max-md:ml-[-120px] font-medium text-gray-500">Account No :-</label>
         <input name="accountOrUpi" value={formData.accountOrUpi} onChange={handleChange}
           required className="input w-full p-2 outline-none text-[15px] border border-gray-700/40 rounded " placeholder="rahul@upi or 1234567890" />
       </div>
-
+{/* 
       <div className='flex max-md:flex-col gap-2 items-center'>
         <label className="block text-[16px] w-50 max-md:ml-[-120px] font-medium text-gray-500">Bank Name :-</label>
         <input name="bankName" value={formData.bankName} onChange={handleChange}
           className="input w-full p-2 outline-none text-[15px] border border-gray-700/40 rounded " placeholder="e.g. HDFC Bank" />
-      </div>
+      </div> */}
 
       <div className='flex max-md:flex-col gap-2 items-center'>
         <label className="block text-[16px] w-50 max-md:ml-[-120px] font-medium text-gray-500">IFSC Code :-</label>
@@ -66,11 +76,11 @@ const PersonalPayment = () => {
           className="input w-full p-2 outline-none text-[15px] border border-gray-700/40 rounded " placeholder="HDFC0001234" />
       </div>
 
-      <div className='flex max-md:flex-col gap-2 items-center'>
+      {/* <div className='flex max-md:flex-col gap-2 items-center'>
         <label className="block text-[16px] w-50 max-md:ml-[-120px] font-medium text-gray-500">Email / Mobile :-</label>
         <input name="contact" value={formData.contact} onChange={handleChange}
           className="input w-full p-2 outline-none text-[15px] border border-gray-700/40 rounded " placeholder="+91XXXXXXXXXX or email" />
-      </div>
+      </div> */}
       </div>
 
       <hr className="text-gray-400  w-312 mx-[-20px]" />
@@ -102,20 +112,20 @@ const PersonalPayment = () => {
           maxLength={50} className="input w-full p-2 outline-none text-[15px] border border-gray-700/40 rounded " placeholder="e.g. Rent for August" />
       </div>
 
-      <div className='flex max-md:flex-col gap-2 items-center'>
+      {/* <div className='flex max-md:flex-col gap-2 items-center'>
         <label className="block text-[16px] w-50 max-md:ml-[-120px] font-medium text-gray-500">Transfer Mode :-</label>
         <select name="transferMode" value={formData.transferMode} onChange={handleChange}
           className="input w-full p-2 outline-none text-[15px] border border-gray-700/40 rounded ">
           <option value="instant">Instant</option>
           <option value="scheduled">Scheduled</option>
         </select>
-      </div>
+      </div> */}
 
       <div className='flex max-md:flex-col gap-2 items-center'>
         <label className="block text-[16px] w-50 max-md:ml-[-120px] font-medium text-gray-500">Enter OTP :-</label>
         <input name="otp" value={formData.otp} onChange={handleChange}
           required className="input w-full p-2 outline-none text-[15px] border border-gray-700/40 rounded " placeholder="Enter 6-digit OTP" />
-          <button className="w-40 p-[7.3px] border rounded border-amber-600 cursor-pointer bg-amber-500 ">
+          <button onClick={sendOtp} className="w-40 p-[7.3px] border rounded border-amber-600 cursor-pointer bg-amber-500 ">
             <span className='ml-auto'>Request Otp</span>
           </button>
       </div>

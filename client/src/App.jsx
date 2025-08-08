@@ -36,15 +36,16 @@ import OtherBankingServices from './pages/OpenAccount/SavingAccount/OtherBanking
 import SubmitNewAccountForm from './pages/OpenAccount/SavingAccount/SubmitNewAccountForm';
 import ChatBot from './components/ChatBot';
 import AskForVkyc from './pages/Kyc/AskForVkyc';
-import kyc from './pages/Kyc/kyc';
 import ScheduleVkyc from './pages/Kyc/ScheduleVkyc';
+import PageNotFound from './pages/pageNotFound';
 
 function App() {
   const location = useLocation();
   const path = location.pathname;
   const navigate = useNavigate();
   const isAdminRoute = path.startsWith('/admin') || path === '/login' || path === '/email-verify' || path === '/reset-password' || path === '/new-account/basic-savings' || path === '/new-account/basic-savings/registration'
-  || path === '/new-account/basic-savings/documents' || path === '/new-account/basic-savings/address' || path === '/new-account/basic-savings/personal-details' || path === '/new-account/basic-savings/nominee' || path === '/new-account/basic-savings/services' || path === '/new-account/basic-savings/submit';
+  || path === '/new-account/basic-savings/documents' || path === '/new-account/basic-savings/address' || path === '/new-account/basic-savings/personal-details' || path === '/new-account/basic-savings/nominee' || path === '/new-account/basic-savings/services' || path === '/new-account/basic-savings/submit'
+  || path === '/kyc';
  
 
   return (
@@ -83,7 +84,7 @@ function App() {
         </Route>
 
         <Route path="/kyc">
-        <Route index element={kyc}/>
+        {/* <Route index element={<KycForm/>}/> */}
         <Route path = "askforvkyc" element={<AskForVkyc/>} />
         <Route path="schedule-vkyc" element={<ScheduleVkyc/>} />
         </Route>
@@ -99,6 +100,7 @@ function App() {
           <Route path="manage-cards" element={<ManageCards/>} />
           <Route path="transactions" element={<Transactions />} />
         </Route>
+        <Route path='*' element = {<PageNotFound/>}/>
       </Routes>
        {!isAdminRoute && < Footer />}
     </div>

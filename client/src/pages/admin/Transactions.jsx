@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useContext, useState} from "react";
 import AdminTitle from "../../components/admin/AdminTitle";
-
+import axios from "axios"
+import { AppContext } from "../../context/AppContext";
 const transactions = [
   {
     id: "txn1",
@@ -197,7 +198,14 @@ const CategoryBadge = ({ category }) => {
 };
 
 const Transactions = () => {
-
+  axios.defaults.withCredentials = true
+  const {backendUrl} = useContext(AppContext)
+  useEffect(async ()=>{
+    axios.get(
+      backendUrl + 'history',
+      {withCredentials: true}
+    )
+  }, [])
   return (
  
     <div>

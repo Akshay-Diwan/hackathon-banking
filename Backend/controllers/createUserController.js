@@ -16,6 +16,7 @@ const deleteUnverifiedUserData = (id) => {
     unverified_Data_Map.delete(id)
 }
 const createUser = async (req, res) => {
+  console.log("Working")
   const { name, phone, email, password } = req.body;
   if (name === null || phone === null || email === null || password === null) {
     res.status(401).json({ error: "credentials required" });
@@ -42,7 +43,7 @@ const createUser = async (req, res) => {
         expires_in: Date.now() + 15 * 60 * 1000,
       }
     );
-    sendOTP(phone);
+    // sendOTP(phone); FILHAL BAND RAK RAHA HO FREE TRIAL EXPIRE HO JAYEGA
    
     res.cookie("tempID", tempID, {
         httpOnly : false,
@@ -98,6 +99,7 @@ const verifyEmail = async (req, res) => {
   const otp = req.body.otp;
   const tempID = req.cookies.tempID;
   let unverified_user = unverified_Data_Map.get(tempID);
+ 
   if(!unverified_user || unverified_user.expires_in < Date.now || !unverified_user.phone_verified
     || !unverified_user.email_OTP
   ){
@@ -125,6 +127,7 @@ const verifyEmail = async (req, res) => {
       deleteUnverifiedUserData(tempID)
       res.cookie('sessionID', sessionID)
       res.cookie('tempID', '')
+      console.log("user created successfully")
       res.status(200).json({ success: "user created successfully" });
   } catch (err) {
     res.cookie('tempID', '')

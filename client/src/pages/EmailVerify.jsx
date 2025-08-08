@@ -47,7 +47,7 @@ const EmailVerify = () => {
       const otp = otpArray.join("");
 
       const { data } = await axios.post(
-        backendUrl + "/api/auth/verify-account",
+        backendUrl + "/createUser/verification/phone",
         { otp }, { withCredentials: true }
       );
 
