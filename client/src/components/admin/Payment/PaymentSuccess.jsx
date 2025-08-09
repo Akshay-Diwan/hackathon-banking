@@ -49,13 +49,13 @@ const PaymentSuccess = () => {
         {/* Buttons */}
         <div className="flex flex-col md:flex-row gap-4 justify-center">
           <button
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/admin")}
             className="bg-emerald-500 cursor-pointer hover:bg-emerald-600 text-white font-semibold py-3 px-6 rounded-xl shadow-lg transition duration-300"
           >
             Go to Dashboard
           </button>
           <button
-            onClick={() => navigate("/transactions")}
+            onClick={() => navigate("/admin/transactions")}
             className="bg-white cursor-pointer hover:bg-blue-500/20 border border-emerald-400 text-emerald-600 font-semibold py-3 px-6 rounded-xl shadow hover:shadow-md transition duration-300"
           >
             View Transactions

@@ -1,113 +1,111 @@
-import React from 'react'
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { assets } from '../../assets/assets';
+import { useTranslation } from 'react-i18next';  // import useTranslation
 
-const SelectNewAccount = ({onStart}) => {
+const SelectNewAccount = ({ onStart }) => {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
 
-  const navigate = useNavigate();  
-
+  // Use keys for translation instead of hardcoded text
   const accountTypes = [
-  {
-    id: "saving-account",
-    img: assets.savingaccount,
-    title: "Savings Account",
-    description: "Ideal for individuals to save and earn interest securely.",
-  },
-  {
-    id: "current-account",
-    img: assets.currentaccount,
-    title: "Current Account",
-    description: "Designed for businesses to manage daily transactions smoothly.",
-  },
-  {
-    id: "student",
-    img: assets.studentaccount,
-    title: "Student Account",
-    description: "Tailored for students with zero balance and exclusive offers.",
-  },
-  {
-    id: "minor",
-    img: assets.minoraccount,
-    title: "Minor Account",
-    description: "Manage your childs finances with parental control.",
-  },
-];
+    {
+      id: "saving-account",
+      img: assets.savingaccount,
+      title: t('selectNewAccount.accountTypes.savingAccount.title'),
+      description: t('selectNewAccount.accountTypes.savingAccount.description'),
+    },
+    {
+      id: "current-account",
+      img: assets.currentaccount,
+      title: t('selectNewAccount.accountTypes.currentAccount.title'),
+      description: t('selectNewAccount.accountTypes.currentAccount.description'),
+    },
+    {
+      id: "student",
+      img: assets.studentaccount,
+      title: t('selectNewAccount.accountTypes.student.title'),
+      description: t('selectNewAccount.accountTypes.student.description'),
+    },
+    {
+      id: "minor",
+      img: assets.minoraccount,
+      title: t('selectNewAccount.accountTypes.minor.title'),
+      description: t('selectNewAccount.accountTypes.minor.description'),
+    },
+  ];
 
-
-
-const relatedAccountActions = [
-  {
-    id: 'check-status',
-    name: 'Check Application Status',
-    icon: '📋',
-    color: 'bg-blue-600',
-    description: 'Track the status of your account opening request.',
-  },
-  {
-    id: 'complete-kyc',
-    name: 'Complete KYC',
-    icon: '🆔',
-    color: 'bg-green-600',
-    description: 'Submit KYC documents if not already provided.',
-  },
-  {
-    id: 'update-info',
-    name: 'Update Personal Details',
-    icon: '✏️',
-    color: 'bg-yellow-600',
-    description: 'Update your address, phone number or email easily.',
-  },
-  {
-    id: 'download-forms',
-    name: 'Download Account Forms',
-    icon: '📄',
-    color: 'bg-purple-600',
-    description: 'Get forms related to nominee, FATCA, etc.',
-  },
-  {
-    id: 'schedule-branch-visit',
-    name: 'Schedule Branch Visit',
-    icon: '📅',
-    color: 'bg-red-500',
-    description: 'Book an appointment for in-person document verification.',
-  },
-  {
-    id: 'video-kyc',
-    name: 'Video KYC',
-    icon: '🎥',
-    color: 'bg-indigo-600',
-    description: 'Complete your KYC instantly via a secure video call.',
-  },
-  {
-    id: 'nominee-details',
-    name: 'Add Nominee',
-    icon: '👨‍👩‍👧',
-    color: 'bg-pink-500',
-    description: 'Add or update a nominee for your account.',
-  },
-  {
-    id: 'cancel-application',
-    name: 'Cancel Application',
-    icon: '❌',
-    color: 'bg-gray-700',
-    description: 'Cancel your application if submitted in error.',
-  },
-  {
-    id: 'contact-support',
-    name: 'Need Help?',
-    icon: '📞',
-    color: 'bg-cyan-700',
-    description: 'Chat or call support for help with the application process.',
-  },
-];
-
-
+  const relatedAccountActions = [
+    {
+      id: 'check-status',
+      name: t('selectNewAccount.relatedActions.checkStatus.name'),
+      icon: '📋',
+      color: 'bg-blue-600',
+      description: t('selectNewAccount.relatedActions.checkStatus.description'),
+    },
+    {
+      id: 'complete-kyc',
+      name: t('selectNewAccount.relatedActions.completeKyc.name'),
+      icon: '🆔',
+      color: 'bg-green-600',
+      description: t('selectNewAccount.relatedActions.completeKyc.description'),
+    },
+    {
+      id: 'update-info',
+      name: t('selectNewAccount.relatedActions.updateInfo.name'),
+      icon: '✏️',
+      color: 'bg-yellow-600',
+      description: t('selectNewAccount.relatedActions.updateInfo.description'),
+    },
+    {
+      id: 'download-forms',
+      name: t('selectNewAccount.relatedActions.downloadForms.name'),
+      icon: '📄',
+      color: 'bg-purple-600',
+      description: t('selectNewAccount.relatedActions.downloadForms.description'),
+    },
+    {
+      id: 'schedule-branch-visit',
+      name: t('selectNewAccount.relatedActions.scheduleBranchVisit.name'),
+      icon: '📅',
+      color: 'bg-red-500',
+      description: t('selectNewAccount.relatedActions.scheduleBranchVisit.description'),
+    },
+    {
+      id: 'video-kyc',
+      name: t('selectNewAccount.relatedActions.videoKyc.name'),
+      icon: '🎥',
+      color: 'bg-indigo-600',
+      description: t('selectNewAccount.relatedActions.videoKyc.description'),
+    },
+    {
+      id: 'nominee-details',
+      name: t('selectNewAccount.relatedActions.nomineeDetails.name'),
+      icon: '👨‍👩‍👧',
+      color: 'bg-pink-500',
+      description: t('selectNewAccount.relatedActions.nomineeDetails.description'),
+    },
+    {
+      id: 'cancel-application',
+      name: t('selectNewAccount.relatedActions.cancelApplication.name'),
+      icon: '❌',
+      color: 'bg-gray-700',
+      description: t('selectNewAccount.relatedActions.cancelApplication.description'),
+    },
+    {
+      id: 'contact-support',
+      name: t('selectNewAccount.relatedActions.contactSupport.name'),
+      icon: '📞',
+      color: 'bg-cyan-700',
+      description: t('selectNewAccount.relatedActions.contactSupport.description'),
+    },
+  ];
 
   return (
-   <div className="min-h-screen mt-20 px-6 py-10 bg-gray-50">
+    <div className="min-h-screen mt-20 px-6 py-10 bg-gray-50">
       <div className="max-w-5xl mx-auto text-center mb-10">
-        <h1 className="text-3xl font-bold text-gray-800">Let’s Get You Started</h1>
-        <p className="text-gray-600 mt-2">Opening an account takes less than 5 minutes.</p>
+        <h1 className="text-3xl font-bold text-gray-800">{t('selectNewAccount.heading')}</h1>
+        <p className="text-gray-600 mt-2">{t('selectNewAccount.subheading')}</p>
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 max-w-7xl mx-auto">
@@ -128,34 +126,31 @@ const relatedAccountActions = [
         ))}
       </div>
 
+      <div className="mt-16 max-w-5xl mx-auto">
+        <h2 className="text-xl font-semibold text-gray-800 mb-6 text-center">
+          👀 {t('selectNewAccount.relatedActions.heading')}
+        </h2>
 
-<div className="mt-16 max-w-5xl mx-auto">
-  <h2 className="text-xl font-semibold text-gray-800 mb-6 text-center">
-    👀 Are you looking for something else?
-  </h2>
-
-  <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-    {relatedAccountActions.map((action) => (
-      <div
-        key={action.id}
-        onClick={() => navigate(`/account/${action.id}`)}
-        className="cursor-pointer p-5 rounded-xl shadow-md hover:shadow-lg transition bg-white"
-      >
-        <div
-          className={`text-3xl w-12 h-12 rounded-full flex items-center justify-center ${action.color} text-white mb-3`}
-        >
-          {action.icon}
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {relatedAccountActions.map((action) => (
+            <div
+              key={action.id}
+              onClick={() => navigate(`/account/${action.id}`)}
+              className="cursor-pointer p-5 rounded-xl shadow-md hover:shadow-lg transition bg-white"
+            >
+              <div
+                className={`text-3xl w-12 h-12 rounded-full flex items-center justify-center ${action.color} text-white mb-3`}
+              >
+                {action.icon}
+              </div>
+              <h3 className="text-lg font-bold text-gray-800 mb-1">{action.name}</h3>
+              <p className="text-sm text-gray-600">{action.description}</p>
+            </div>
+          ))}
         </div>
-        <h3 className="text-lg font-bold text-gray-800 mb-1">{action.name}</h3>
-        <p className="text-sm text-gray-600">{action.description}</p>
       </div>
-    ))}
-  </div>
-</div>
-
-
     </div>
-  )
-}
+  );
+};
 
 export default SelectNewAccount;

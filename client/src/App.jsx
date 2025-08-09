@@ -2,6 +2,7 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import './i18n';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import AboutUs from './pages/AboutUs';
 import Careers from './pages/Careers';

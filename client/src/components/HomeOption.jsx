@@ -1,50 +1,47 @@
-import React from 'react'
+import React from "react";
 import { Globe, PieChart, Rocket, Server } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const HomeOption = () => {
+  const { t } = useTranslation();
+
   const motivationItems = [
     {
       icon: <Globe className="w-10 h-10 text-orange-400" />,
-      title: "Online Banking",
-      subtitle:
-        "Our modern web and mobile applications allow you to keep track of your finances wherever you are in the world.",
+      title: t("home.features.onlineBanking.title"),
+      subtitle: t("home.features.onlineBanking.subtitle"),
     },
     {
       icon: <PieChart className="w-10 h-10 text-orange-400" />,
-      title: "Simple Budgeting",
-      subtitle:
-        "See exactly where your money goes each month. Receive notifications when you're close to hitting your limits.",
+      title: t("home.features.simpleBudgeting.title"),
+      subtitle: t("home.features.simpleBudgeting.subtitle"),
     },
     {
       icon: <Rocket className="w-10 h-10 text-orange-400" />,
-      title: "Fast Onboarding",
-      subtitle:
-        "We don't do branches. Open your account in minutes online and start taking control of your finances right away.",
+      title: t("home.features.fastOnboarding.title"),
+      subtitle: t("home.features.fastOnboarding.subtitle"),
     },
     {
       icon: <Server className="w-10 h-10 text-orange-400" />,
-      title: "Open API",
-      subtitle:
-        "Manage your savings, investments, pension, and much more from one account. Tracking your money has never been easier.",
+      title: t("home.features.openAPI.title"),
+      subtitle: t("home.features.openAPI.subtitle"),
     },
   ];
 
   return (
-    <section id="About" className="py-20  md:py-40 bg-[#0f172a]">
+    <section id="About" className="py-20 md:py-40 bg-[#041336]">
       <div className="max-w-[1800px] w-full mx-auto flex flex-col justify-center items-center gap-10 px-4 sm:px-10 md:px-12 text-center lg:text-left">
-        
         {/* Heading */}
         <div className="grid lg:grid-cols-2 mb-12 lg:mb-16">
           <div className="col-span-1">
             <h2 className="text-3xl font-bold !font-sans lg:text-4xl text-teal-600 pb-5 mb-5">
-              Discover the Top Reasons to Bank with{" "}
+              {t("home.heading")}{" "}
               <span className="font-extrabold text-orange-500">
-                Bank of Maharashtra
+                {t("home.bankName")}
               </span>
             </h2>
             <p className="text-white !font-sans font-light text-lg leading-5">
-              We leverage Open Banking to turn your bank account into your
-              financial hub. Control your finances like never before.
+              {t("home.description")}
             </p>
           </div>
         </div>
