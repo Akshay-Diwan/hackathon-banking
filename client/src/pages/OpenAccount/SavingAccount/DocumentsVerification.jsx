@@ -11,13 +11,13 @@ function DocumentVerification() {
   const [aadhaarOtpVerified, setAadhaarOtpVerified] = useState(false);
   const inputRefs = useRef([]);
   const navigate = useNavigate();
-
+  
   const [form, setForm] = useState({
-    panNumber: "",
-    aadhaarNumber: "",
-    panFile: null,
-    aadhaarFile: null,
-    aadhaarOtp: "",
+    pan_number: "",
+    aadhaar_number: "",
+    pan: null,
+    aadhaar: null,
+    aadhaar_otp: "",
   });
 
   const handleChange = (e) => {
@@ -31,7 +31,7 @@ function DocumentVerification() {
   };
 
   const handleSendOtp = () => {
-    if (!form.aadhaarNumber || form.aadhaarNumber.length < 12) {
+    if (!form.aadhaar_number || form.aadhaar_number.length < 12) {
       return toast.error("Enter valid Aadhaar number before sending OTP.");
     }
     setAadhaarOtpSent(true);
@@ -96,8 +96,8 @@ function DocumentVerification() {
           </label>
           <input
             type="text"
-            name="panNumber"
-            value={form.panNumber}
+            name="pan_number"
+            value={form.pan_number}
             onChange={handleChange}
             placeholder="ABCDE1234F"
             className="w-full mt-1 border rounded-md px-3 py-2"
@@ -111,8 +111,8 @@ function DocumentVerification() {
           </label>
           <input
             type="text"
-            name="aadhaarNumber"
-            value={form.aadhaarNumber}
+            name="aadhaar_number"
+            value={form.aadhaar_number}
             onChange={handleChange}
             placeholder="1234 5678 9012"
             className="w-full mt-1 border rounded-md px-3 py-2"
@@ -127,7 +127,7 @@ function DocumentVerification() {
             </label>
             <input
               type="file"
-              name="panFile"
+              name="pan"
               accept=".pdf,.jpg,.jpeg,.png"
               onChange={handleFileChange}
               className="mt-2 cursor-pointer border border-gray-600/30 p-2 rounded text-gray-600"
@@ -139,7 +139,7 @@ function DocumentVerification() {
             </label>
             <input
               type="file"
-              name="aadhaarFile"
+              name="aadhaar"
               accept=".pdf,.jpg,.jpeg,.png"
               onChange={handleFileChange}
               className="mt-2 cursor-pointer border border-gray-600/30 p-2 rounded text-gray-600"

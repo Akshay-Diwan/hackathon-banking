@@ -1,18 +1,35 @@
-import React from "react";
+import React, {useContext} from "react";
 import { useForm } from "../../../context/FormContext";
 import { useNavigate } from "react-router-dom";
 import AccountProgressTracker from "../../../components/AccountProgressTracker";
 import toast from "react-hot-toast";
+import axios from 'axios';
+import { AppContext } from "../../../context/AppContext";
 
 const SubmitNewAccountForm = () => {
   const { formData } = useForm();
   const navigate = useNavigate();
-
-  const handleFinalSubmit = () => {
+  const { backendUrl} = useContext(AppContext)
+  const handleFinalSubmit = async () => {
     // Here you'd typically send `formData` to backend
-    
-    toast.success("Form successfully submitted!");
-    navigate("/kyc/askforvkyc"); // or reset form or redirect
+    console.log(backendUrl)
+    const {data} = await axios.post(
+      backendUrl + '/allUserInfo',
+      formData,
+      {withCredentials: true}
+    )
+    console.log(data)
+    if(data.success){
+      console.log(data)
+        toast.success("Form successfully submitted!");
+      navigate("/kyc/askforvkyc"); // or reset form or redirect
+    }
+    else{
+      console.log(data)
+        toast.error("Error in form submission");
+
+    }
+  
   };
 
   const Section = ({ title, data }) => (

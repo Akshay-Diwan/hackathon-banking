@@ -54,7 +54,7 @@ const EmailVerify = () => {
       if (data.success) {
         toast.success(data.message);
         getUserData();
-        navigate("/admin");
+        navigate("/new-account/basic-savings/documents");
       } else {
         toast.error(data.message);
       }

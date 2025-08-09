@@ -37,6 +37,7 @@ import SubmitNewAccountForm from './pages/OpenAccount/SavingAccount/SubmitNewAcc
 import ChatBot from './components/ChatBot';
 import AskForVkyc from './pages/Kyc/AskForVkyc';
 import ScheduleVkyc from './pages/Kyc/ScheduleVkyc';
+import VideoCall from './pages/Kyc/VideoCall';
 import PaymentOptions from './pages/admin/Payment/PaymentOption';
 import UpiPayment from './components/admin/Payment/UpiPayment';
 import NetBankingPayment from './components/admin/Payment/NetBankingPayment';
@@ -45,6 +46,8 @@ import DebitCardPayment from './components/admin/Payment/DebitCardPayment';
 import PaymentSuccess from './components/admin/Payment/PaymentSuccess';
 import LoadingPage from './components/LoadingPage';
 import PageNotFound from './pages/pageNotFound';
+
+import { LogIn } from 'lucide-react';
 
 function App() {
   const location = useLocation();
@@ -78,9 +81,9 @@ function App() {
           <Route index element={<SelectNewAccount />}/>
          <Route path = "saving-account" element = {<SavingAccount/>} />
          <Route path = "current-account" element = {<CurrentAccount/>} />
-         <Route path="basic-savings" >
+         <Route path="basic-savings" > 
   <Route index element={<BasicSaving />} />
-  <Route path="registration" element={<CustomerRegistration />} />
+  <Route path="registration" element={<UserLogin signUp = "true"/>} />
   <Route path="documents" element={<DocumentsVerification />} />
   <Route path="address" element={<AddressVerification />} />
   <Route path="personal-details" element={<PersonalDetails />} />
@@ -95,6 +98,7 @@ function App() {
         {/* <Route index element={<KycForm/>}/> */}
         <Route path = "askforvkyc" element={<AskForVkyc/>} />
         <Route path="schedule-vkyc" element={<ScheduleVkyc/>} />
+        <Route path="call-us" element={<VideoCall/>}/>
         </Route>
 
          <Route path="/admin" element={<Layout />}>

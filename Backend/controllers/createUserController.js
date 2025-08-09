@@ -39,11 +39,11 @@ const createUser = async (req, res) => {
         name,
         email,
         phone,
-        hashedPwd,
+        password: hashedPwd,
         expires_in: Date.now() + 15 * 60 * 1000,
       }
     );
-    // sendOTP(phone); FILHAL BAND RAK RAHA HO FREE TRIAL EXPIRE HO JAYEGA
+    sendOTP(phone); //FILHAL BAND RAK RAHA HO FREE TRIAL EXPIRE HO JAYEGA
    
     res.cookie("tempID", tempID, {
         httpOnly : false,
@@ -84,44 +84,13 @@ const verifyPhone = async (req, res) => {
   const verificationCheck = await phoneOTPVerification(otp, unverified_user.phone)
   console.log(verificationCheck.status);
   if(verificationCheck.status === 'approved'){
-    const email_OTP = generateOTP()
-    const info = await sendEmailOTP(unverified_user, email_OTP)
-    console.log(info.messageId)
-    unverified_Data_Map.set(tempID, {...unverified_user, phone_verified: true, email_OTP: email_OTP})
-    res.status(200).json({
-      status : "success",
-      message: "phone number verified move to email verification"
-    })
-  }
-};
-
-const verifyEmail = async (req, res) => {
-  const otp = req.body.otp;
-  const tempID = req.cookies.tempID;
-  let unverified_user = unverified_Data_Map.get(tempID);
- 
-  if(!unverified_user || unverified_user.expires_in < Date.now || !unverified_user.phone_verified
-    || !unverified_user.email_OTP
-  ){
-    res.status(400).json({
-      status : "error",
-      message: "phone number unverified"
-    })
-  }
-  else if(unverified_user.email_OTP != otp){
-    res.status(401).json({
-      status: "failure",
-      message : "wrong otp"
-    })
-  }
-  else{
-    try {
+      try {
+        delete unverified_user.expires_in
       await prisma.user.create({
         data: getUniverifiedUser(tempID),
       });
       const sessionID = uuid()
-      delete unverified_user.password
-      delete unverified_user.email_OTP
+      delete unverified_user.hashedPwd
       delete unverified_user.verified_phone
       setUser(sessionID, unverified_user)
       deleteUnverifiedUserData(tempID)
@@ -135,11 +104,43 @@ const verifyEmail = async (req, res) => {
     console.log(err);
     res.status(500).json({ error: "Internal Server Error" });
   }
+    // const email_OTP = generateOTP()
+    // const info = await sendEmailOTP(unverified_user, email_OTP)
+    // console.log(info.messageId)
+    // unverified_Data_Map.set(tempID, {...unverified_user, phone_verified: true, email_OTP: email_OTP})
+    // res.status(200).json({
+    //   status : "success",
+    //   message: "phone number verified move to email verification"
+    // })
   }
-  console.log("Message sent:", info.messageId);
-}
+};
 
-module.exports = { createUser, verifyPhone, verifyEmail };
+// const verifyEmail = async (req, res) => {
+//   const otp = req.body.otp;
+//   const tempID = req.cookies.tempID;
+//   let unverified_user = unverified_Data_Map.get(tempID);
+ 
+//   if(!unverified_user || unverified_user.expires_in < Date.now || !unverified_user.phone_verified
+//     || !unverified_user.email_OTP
+//   ){
+//     res.status(400).json({
+//       status : "error",
+//       message: "phone number unverified"
+//     })
+//   }
+//   else if(unverified_user.email_OTP != otp){
+//     res.status(401).json({
+//       status: "failure",
+//       message : "wrong otp"
+//     })
+//   }
+//   else{
+  
+//   }
+//   console.log("Message sent:", info.messageId);
+// }
+
+module.exports = { createUser, verifyPhone };
 
 
 

@@ -6,10 +6,10 @@ import axios from 'axios'
 import { AppContext } from "../context/AppContext";
 
 
-const UserLogin = () => {
+const UserLogin = (props) => {
   const { backendUrl} = useContext(AppContext);
   const navigate = useNavigate();
-  const [type, setType] = useState('sign-in')
+  const [type, setType] = useState(props.signUp?'sign-up':'sign-in')
   const [isLoading, setIsLoading] = useState(false)
 
   // Common fields

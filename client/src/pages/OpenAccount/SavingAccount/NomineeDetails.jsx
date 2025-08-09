@@ -9,15 +9,11 @@ const NomineeDetails = () => {
   const { updateSection } = useForm();
 
   const [localData, setLocalData] = useState({
-    fullName: "",
-    relationship: "",
-    birthDate: "",
-    email: "",
-    phone: "",
-    address: "",
-    state: "",
-    district: "",
-    city: "",
+    nomineeFullName: "",
+    nomineeRelationship: "",
+    nomineeEmail: "",
+    nomineePhone: "",
+    nomineeAddress: "",
   });
 
   const handleChange = (e) => {
@@ -52,8 +48,8 @@ const NomineeDetails = () => {
           <label className="block text-gray-700 font-medium mb-2">Full Name <span className="text-red-500">*</span></label>
           <input
             type="text"
-            name="fullName"
-            value={localData.fullName}
+            name="nomineeFullName"
+            value={localData.nomineeFullName}
             onChange={handleChange}
             required
             className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -64,8 +60,8 @@ const NomineeDetails = () => {
         <div>
           <label className="block text-gray-700 font-medium mb-2">Relationship <span className="text-red-500">*</span></label>
           <select
-            name="relationship"
-            value={localData.relationship}
+            name="nomineeRelationship"
+            value={localData.nomineeRelationship}
             onChange={handleChange}
             required
             className="w-full px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -82,7 +78,7 @@ const NomineeDetails = () => {
         </div>
 
         {/* Birth Date */}
-        <div>
+        {/* <div>
           <label className="block text-gray-700 font-medium mb-2">Birth Date <span className="text-red-500">*</span></label>
           <input
             type="date"
@@ -92,15 +88,15 @@ const NomineeDetails = () => {
             required
             className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-        </div>
+        </div> */}
 
         {/* Email */}
         <div>
           <label className="block text-gray-700 font-medium mb-2">Email <span className="text-red-500">*</span></label>
           <input
             type="email"
-            name="email"
-            value={localData.email}
+            name="nomineeEmail"
+            value={localData.nomineeEmail}
             onChange={handleChange}
             required
             className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -112,8 +108,8 @@ const NomineeDetails = () => {
           <label className="block text-gray-700 font-medium mb-2">Phone Number <span className="text-red-500">*</span></label>
           <input
             type="tel"
-            name="phone"
-            value={localData.phone}
+            name="nomineePhone"
+            value={localData.nomineePhone}
             onChange={handleChange}
             required
             className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -125,8 +121,8 @@ const NomineeDetails = () => {
           <label className="block text-gray-700 font-medium mb-2">Address <span className="text-red-500">*</span></label>
           <input
             type="text"
-            name="address"
-            value={localData.address}
+            name="nomineeAddress"
+            value={localData.nomineeAddress}
             onChange={handleChange}
             required
             className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -134,43 +130,43 @@ const NomineeDetails = () => {
         </div>
 
         {/* State */}
-        <div>
+        {/* <div>
           <label className="block text-gray-700 font-medium mb-2">State <span className="text-red-500">*</span></label>
           <input
             type="text"
             name="state"
-            value={localData.state}
+            value={localData.nomineeState}
             onChange={handleChange}
             required
             className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-        </div>
+        </div> */}
 
         {/* District */}
-        <div>
+        {/* <div>
           <label className="block text-gray-700 font-medium mb-2">District <span className="text-red-500">*</span></label>
           <input
             type="text"
             name="district"
-            value={localData.district}
+            value={localData.nomineeDistrict}
             onChange={handleChange}
             required
             className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-        </div>
+        </div> */}
 
         {/* City */}
-        <div>
+        {/* <div>
           <label className="block text-gray-700 font-medium mb-2">City <span className="text-red-500">*</span></label>
           <input
             type="text"
             name="city"
-            value={localData.city}
+            value={localData.nomineeCity}
             onChange={handleChange}
             required
             className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-        </div>
+        </div> */}
       </div>
 
       {/* Buttons */}

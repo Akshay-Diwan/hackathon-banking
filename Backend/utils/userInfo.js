@@ -1,3 +1,5 @@
+const {getUser} = require('../tempStorage')
+
 function getClientIP(req) {
     const xForwardedFor = req.headers['x-forwarded-for'];
     if (xForwardedFor) {
@@ -7,8 +9,10 @@ function getClientIP(req) {
   return req.socket?.remoteAddress || req.ip;
 }
 function getCustomerID(req) {
-    if(req?.cookies?.session_ID){
-        return getUser(req.cookies.session_ID)
+    console.log("Cookies : " + Object.keys(req.cookies))
+
+    if(req?.cookies?.sessionID){
+        return getUser(req.cookies.sessionID)
     }
     else if(req.body.customer_ID){
         return req.bod.customer_ID

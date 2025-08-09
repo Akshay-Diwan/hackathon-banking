@@ -13,6 +13,7 @@ const kycdocuments = require('./routes/api/kycdocuments')
 const videoKYC = require('./routes/api/videoKYC')
 const getBalance = require('./routes/api/getBalance')
 const requestOtp = require('./routes/api/requestOtp')
+const allUSerInfo = require('./routes/api/allUserInfo')
 const connectMongoDb = require('./config/mongodb')
 const reqLogger = require('./middlewares/reqLogger')
 const verifyUser = require('./middlewares/verifyUser')
@@ -33,6 +34,7 @@ app.use('/verifySMTP', verifySMPT)
 app.use('/login', login);
 app.use('/logout', logout)
 app.use('/createUser', createUser);
+app.use('/allUserInfo', allUSerInfo);
 app.use(verifyUser)
 app.use('/requestOtp', requestOtp)
 app.use('/getBalance', getBalance)
