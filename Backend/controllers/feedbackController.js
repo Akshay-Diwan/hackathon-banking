@@ -2,7 +2,7 @@
 const { logger } = require('../config/nodemailer');
 const Feedback = require('../mongoSchema/feeback')
 const {getCustomerID, getClientIP} = require('../utils/userInfo')
-
+const logger = require('../middlewares/dataLogger')
 const feedbackController = async (req, res) => {
     const {feedback, from} = req.body;
     const customer_ID = getCustomerID(req)

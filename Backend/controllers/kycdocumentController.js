@@ -2,6 +2,7 @@ const {PrismaClient} = require('../generate/prisma')
 const prisma = new PrismaClient()
 const {v4 : uuid} = require('uuid')
 const { getCustomerID } = require('../utils/userInfo');
+const logger = require('../middlewares/dataLogger')
 
 const kycdocumentController = async (req, res , component = false) => {
   try{
@@ -43,7 +44,7 @@ const kycdocumentController = async (req, res , component = false) => {
         status : "ERROR", 
         details : "Invalid Aadhaar number"
       }
-    )
+     )
       return component? { error:  "Invalid Aadhaar number" }:res.status(400).json({ error: "Invalid Aadhaar number." });
     }
     const kyc_ID = uuid()

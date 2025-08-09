@@ -3,7 +3,7 @@ import io from "socket.io-client";
 
 const socket = io("http://localhost:8080");
 
-export default function VideoCall() {
+export default function BankManagerKyc() {
   const localVideoRef = useRef();
   const remoteVideoRef = useRef();
   const pcRef = useRef(null);
@@ -109,3 +109,4 @@ export default function VideoCall() {
     </div>
   );
 }
+
