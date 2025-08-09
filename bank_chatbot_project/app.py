@@ -30,7 +30,7 @@ def get_pg_connection():
 dotenv.load_dotenv()
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+CORS(app, supports_credentials=True, origins=["http://localhost:5173"])  # Enable CORS for all routes
 
 # # MySQL setup
 # db_config = {
@@ -38,7 +38,7 @@ CORS(app)  # Enable CORS for all routes
 #     'password': os.getenv('PASS_KEY'),
 #     'host': 'localhost',
 #     'database': 'bank_chatbot'
-# }
+
 
 RASA_SERVER_URL = "http://localhost:5005/webhooks/rest/webhook"
 
@@ -323,7 +323,7 @@ def chat_internal(data):
         "rasa_response": bot_response
     }
 
-    return jsonify(response_data)
+    return jsonify()
 
 @app.route('/audio/<filename>')
 def serve_audio(filename):
@@ -342,7 +342,7 @@ def save_chat_to_db(user_id, conversation_id, user_message, bot_response, langua
     conn = get_pg_connection()
     cursor = conn.cursor()
     cursor.execute("""
-        INSERT INTO messages (conversation_id, user_message, bot_response, timestamp, language, audio_file)
+        INSERT INTO chatbot.messages (conversation_id, user_message, bot_response, timestamp, language, audio_file)
         VALUES (%s, %s, %s, %s, %s, %s)
     """, (conversation_id, user_message, bot_response, datetime.now(timezone.utc), language, audio_file))
     conn.commit()
@@ -356,14 +356,14 @@ def get_chat_history(user_id, conversation_id):
     cursor = conn.cursor(dictionary=True)
     cursor.execute("""
         SELECT user_message, bot_response, language, audio_file, timestamp
-        FROM messages
+        FROM chatbot.messages
         WHERE conversation_id = %s
         ORDER BY timestamp ASC
     """, (conversation_id,))
     history = cursor.fetchall()
     cursor.close()
     conn.close()
-    print(f"Retrieved chat history for user {user_id} in conversation {conversation_id}: {len(history)} messages")
+    print(f"Retrieved chat history for user {user_id} in conversation {conversation_id}: {len(history)} chatbot.messages")
     return history
 
 @app.route('/history', methods=['GET'])
@@ -390,7 +390,7 @@ def new_conversation():
     conn = get_pg_connection()
     cursor = conn.cursor()
     cursor.execute("""
-        INSERT INTO conversations (user_id, conversation_id, timestamp)
+        INSERT INTO chatbot.conversations (user_id, conversation_id, timestamp)
         VALUES (%s, %s, %s)
     """, (user_id, conversation_id, datetime.now(timezone.utc)))
     conn.commit()
@@ -410,7 +410,7 @@ def get_conversations():
     cursor = conn.cursor(dictionary=True)
     cursor.execute("""
         SELECT conversation_id
-        FROM conversations
+        FROM chatbot.conversations
         WHERE user_id = %s
     """, (user_id,))
     conversations = cursor.fetchall()
@@ -433,7 +433,7 @@ def delete_conversation():
 
     # First, retrieve bot responses associated with the conversation
     cursor.execute("""
-        SELECT audio_file FROM messages WHERE conversation_id = %s
+        SELECT audio_file FROM chatbot.messages WHERE conversation_id = %s
     """, (conversation_id,))
     audio_files = cursor.fetchall()
 
@@ -449,9 +449,9 @@ def delete_conversation():
                     print(f"[WARN] Failed to delete audio file: {audio_path} | Error: {e}")
 
 
-    # Now delete messages and conversation
-    cursor.execute("DELETE FROM messages WHERE conversation_id = %s", (conversation_id,))
-    cursor.execute("DELETE FROM conversations WHERE conversation_id = %s", (conversation_id,))
+    # Now delete chatbot.messages and conversation
+    cursor.execute("DELETE FROM chatbot.messages WHERE conversation_id = %s", (conversation_id,))
+    cursor.execute("DELETE FROM chatbot.conversations WHERE conversation_id = %s", (conversation_id,))
     conn.commit()
     cursor.close()
     conn.close()

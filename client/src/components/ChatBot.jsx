@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios'
+
 const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
@@ -16,7 +17,6 @@ const ChatBot = () => {
   ];
 
   const toggleChat = () => setIsOpen((prev) => !prev);
-
   const handleSuggestionClick = (text) => {
     sendMessageFromSuggestion(text);
   };
@@ -38,7 +38,13 @@ const ChatBot = () => {
     e.preventDefault();
     const trimmed = input.trim();
     if (!trimmed) return;
-    
+    axios.post(
+      'http://localhost:5001',
+      {messages,
+        user_id: "UserID",
+      },
+      
+    )
     sendMessageFromSuggestion(trimmed);
     setInput('');
   };

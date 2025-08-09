@@ -46,7 +46,7 @@ import DebitCardPayment from './components/admin/Payment/DebitCardPayment';
 import PaymentSuccess from './components/admin/Payment/PaymentSuccess';
 import LoadingPage from './components/LoadingPage';
 import PageNotFound from './pages/pageNotFound';
-
+import ChatApp from './components/ChatApp'
 import { LogIn } from 'lucide-react';
 
 function App() {
@@ -64,7 +64,7 @@ function App() {
       {!isAdminRoute && <Navbar />}
 
       <div className="fixed bottom-6 right-6 z-50">
-        <ChatBot />
+        <ChatApp />
       </div>
 
       <Routes>

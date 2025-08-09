@@ -14,9 +14,9 @@ import ChatBot from '../components/ChatBot';
 const HomePage = () => {
   return (
     <div>
-        <div className="fixed right-6 bottom-6 z-50">
+        {/* <div className="fixed right-6 bottom-6 z-50">
         <ChatBot />
-        </div>
+        </div> */}
   
      <HomeMain />
      <HomeOption />

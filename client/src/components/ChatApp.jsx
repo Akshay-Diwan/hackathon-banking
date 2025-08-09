@@ -4,7 +4,8 @@ import ChatSidebar from './ChatSidebar';
 import ChatWindow from './ChatWindow';
 
 const ChatApp = () => {
-  const [isOpen, setIsOpen] = useState();
+  const [isOpen, setIsOpen] = useState(false);
+  const [input, setInput] = useState();
   const [chats, setChats] = useState(() => {
     const storedChats = localStorage.getItem('chats');
     return storedChats ? JSON.parse(storedChats) : [];
@@ -18,7 +19,18 @@ const ChatApp = () => {
     return storedConversations ? JSON.parse(storedConversations) : [];
   });
   const userId = 'user124'; // Replace with actual user ID logic
-  const toggleChat = () => setIsOpen((prev) => !prev);
+  const toggleChat = async () => {
+    console.log("Toggled chat!")
+    if (!isOpen) {
+    console.log("working");
+    if(!localStorage.getItem('selectedChatIndex')){
+      await startNewConversation();
+    }
+  }
+
+setIsOpen((prev) => !prev);
+    
+  };
   useEffect(() => {
     const fetchChatHistory = async () => {
       try {
@@ -41,7 +53,7 @@ const ChatApp = () => {
         console.error("Error fetching chat history:", error);
       }
     };
-
+    console.log("Ye chala")
     fetchChatHistory();
   }, [userId, conversations, selectedChatIndex]);
 

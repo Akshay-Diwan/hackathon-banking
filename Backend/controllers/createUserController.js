@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const prisma = new PrismaClient();
 const { v4: uuid } = require("uuid");
 
-const {sendOTP, sendEmailOTP, generateOTP, phoneOTPVerification} = require('../utils/otpFunctions')
+const {sendOTP, phoneOTPVerification} = require('../utils/otpFunctions')
 
 const unverified_Data_Map = new Map();
 const setUnVerifiedUser = (id, user)=> {
