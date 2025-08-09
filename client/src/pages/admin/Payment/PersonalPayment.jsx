@@ -119,7 +119,7 @@ const PersonalPayment = () => {
   }
 
   return (
-    <div>
+    <>
       <AdminTitle
         text={t('personalPayment.title')}
         description={t('personalPayment.description')}
@@ -254,7 +254,7 @@ const PersonalPayment = () => {
         <input name="contact" value={formData.contact} onChange={handleChange}
           className="input w-full p-2 outline-none text-[15px] border border-gray-700/40 rounded " placeholder="+91XXXXXXXXXX or email" />
       </div> */}
-      </div>
+      {/* </div> */}
 
         <hr className="text-gray-400  w-312 mx-[-20px]" />
 
@@ -356,7 +356,6 @@ const PersonalPayment = () => {
           </button>
       </div>
 
-      </div>
 
         <button
           type="submit"
@@ -392,7 +391,8 @@ const PersonalPayment = () => {
           )}
         </button>
       </form>
-    </div>
+  </>
+    
   );
 };
 
