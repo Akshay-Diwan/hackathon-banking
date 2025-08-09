@@ -15,7 +15,7 @@ import dotenv
 import re
 import psycopg2
 import psycopg2.extras
-
+from IndicTransToolkit.langTrans import Translator
 # PostgreSQL setup
 db_config = {
     'user': 'postgres',
@@ -31,7 +31,7 @@ dotenv.load_dotenv()
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True, origins=["http://localhost:5173"])  # Enable CORS for all routes
-
+translator = Translator()
 # # MySQL setup
 # db_config = {
 #     'user': 'root',
@@ -457,6 +457,19 @@ def delete_conversation():
     conn.close()
 
     return jsonify({"message": "Conversation and associated audio files deleted."})
+
+@app.route('/translate', methods = ['POST'])
+def translate_text():
+    data = request.get_json()
+    text = data.get('text')
+    src_lang = data.get('src_lang')
+    tgt_lang = data.get('tgt_lang')
+
+    if not text or not src_lang or not tgt_lang:
+         return jsonify({"error": "Missing required fields"}), 400
+
+    output = translator.translate(text, src_lang, tgt_lang)
+    return jsonify({"translated_text": output})
 
 
 if __name__ == '__main__': 

@@ -1,0 +1,8 @@
+dist/
+build/
+*.egg-info/
+*/*/__pycache__/
+*/__pycache__/
+IndicTransToolkit/*.c
+IndicTransToolkit/*.so
+/myenve
