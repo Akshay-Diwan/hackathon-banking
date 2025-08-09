@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-
+import axios from 'axios'
 const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
@@ -38,7 +38,7 @@ const ChatBot = () => {
     e.preventDefault();
     const trimmed = input.trim();
     if (!trimmed) return;
-
+    
     sendMessageFromSuggestion(trimmed);
     setInput('');
   };

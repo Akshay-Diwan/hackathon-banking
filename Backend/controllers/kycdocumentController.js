@@ -19,7 +19,11 @@ const kycdocumentController = async (req, res , component = false) => {
       pan_number,
     } = documents
     
-    const customer_ID = getCustomerID(req)
+    const customer_ID = await prisma.tempUser.findUnique({
+      where: {
+        sessionID: req.cookies.sessionID
+      }
+    }).customerId;
     console.log(customer_ID)
     const files = req.files;
 
@@ -38,7 +42,7 @@ const kycdocumentController = async (req, res , component = false) => {
     if (aadhaar_number && !/^\d{12}$/.test(aadhaar_number)) {
        logger(
       {
-        customerId: getCustomerID(req),
+        customerId: customer_ID,
         ipAddress: getClientIP(req),
         action : "KYC Submission",
         status : "ERROR", 

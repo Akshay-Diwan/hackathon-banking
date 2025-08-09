@@ -1,7 +1,7 @@
 const { PrismaClient } = require('../generate/prisma')
 const bcrypt =  require('bcrypt')
 const prisma = new PrismaClient()
-const {uuid: v4} = require('uuid')
+const {v4: uuid} = require('uuid')
 const {setUser, deleteTempUserData} = require('../tempStorage')
 const handleLogin = async (req, res)=>{
     const email = req.body.email;
@@ -11,6 +11,7 @@ const handleLogin = async (req, res)=>{
     try{
     if(!password){
         res.status(401).json({"error": "Credentials required"})
+        console.log("Credentials required")
         return
     }
     if(email) {

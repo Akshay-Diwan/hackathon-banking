@@ -96,6 +96,18 @@ model Quiz {
   correctOption String
   incorrectOptions String[]
 }
+model TempUser {
+  id         String   @id @default(uuid()) 
+  sessionID  String// Unique ID
+  customerId String
+  name       String
+  email      String   
+  phone      String   
+  password   String   // hashed password
+  expiresIn  String // expiry timestamp
+
+  @@index([expiresIn]) // Optional: index for faster expiry lookups
+}
 enum AccountType {
   SAVINGS
   CURRENT

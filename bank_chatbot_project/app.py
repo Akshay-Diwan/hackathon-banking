@@ -13,20 +13,32 @@ import io
 from pydub import AudioSegment
 import dotenv
 import re
+import psycopg2
+import psycopg2.extras
 
+# PostgreSQL setup
+db_config = {
+    'user': 'postgres',
+    'password': os.getenv('PASS_KEY'),
+    'host': 'localhost',
+    'dbname': 'banking'
+}
+
+def get_pg_connection():
+    return psycopg2.connect(**db_config)
 # Load environment variables
 dotenv.load_dotenv()
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
-# MySQL setup
-db_config = {
-    'user': 'root',
-    'password': os.getenv('PASS_KEY'),
-    'host': 'localhost',
-    'database': 'bank_chatbot'
-}
+# # MySQL setup
+# db_config = {
+#     'user': 'root',
+#     'password': os.getenv('PASS_KEY'),
+#     'host': 'localhost',
+#     'database': 'bank_chatbot'
+# }
 
 RASA_SERVER_URL = "http://localhost:5005/webhooks/rest/webhook"
 
@@ -327,7 +339,7 @@ def serve_audio(filename):
         return jsonify({"error": "Error serving audio"}), 500
 
 def save_chat_to_db(user_id, conversation_id, user_message, bot_response, language="en", audio_file=None):
-    conn = mysql.connector.connect(**db_config)
+    conn = get_pg_connection()
     cursor = conn.cursor()
     cursor.execute("""
         INSERT INTO messages (conversation_id, user_message, bot_response, timestamp, language, audio_file)
@@ -340,7 +352,7 @@ def save_chat_to_db(user_id, conversation_id, user_message, bot_response, langua
 
 
 def get_chat_history(user_id, conversation_id):
-    conn = mysql.connector.connect(**db_config)
+    conn = get_pg_connection()
     cursor = conn.cursor(dictionary=True)
     cursor.execute("""
         SELECT user_message, bot_response, language, audio_file, timestamp
@@ -375,7 +387,7 @@ def new_conversation():
 
     conversation_id = str(datetime.now(timezone.utc).timestamp())
 
-    conn = mysql.connector.connect(**db_config)
+    conn = get_pg_connection()
     cursor = conn.cursor()
     cursor.execute("""
         INSERT INTO conversations (user_id, conversation_id, timestamp)
@@ -394,7 +406,7 @@ def get_conversations():
     if not user_id:
         return jsonify({"error": "No user_id provided"}), 400
 
-    conn = mysql.connector.connect(**db_config)
+    conn = get_pg_connection()
     cursor = conn.cursor(dictionary=True)
     cursor.execute("""
         SELECT conversation_id
@@ -416,7 +428,7 @@ def delete_conversation():
     if not user_id or not conversation_id:
         return jsonify({"error": "No user_id or conversation_id provided"}), 400
 
-    conn = mysql.connector.connect(**db_config)
+    conn = get_pg_connection()
     cursor = conn.cursor()
 
     # First, retrieve bot responses associated with the conversation

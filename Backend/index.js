@@ -59,7 +59,7 @@ app.use('/login', login);
 app.use('/logout', logout)
 app.use('/createUser', createUser);
 app.use('/allUserInfo', allUSerInfo);
-app.use(verifyUser)
+// app.use(verifyUser)
 app.use('/requestOtp', requestOtp)
 app.use('/getBalance', getBalance)
 app.use('/transfer',transfer);

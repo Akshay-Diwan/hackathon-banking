@@ -12,9 +12,10 @@ function getCustomerID(req) {
     console.log("Cookies : " + Object.keys(req.cookies))
 
     if(req?.cookies?.sessionID){
-        return getUser(req.cookies.sessionID)
+        return getUser(req.cookies.sessionID).customerId
     }
     else if(req.body.customer_ID){
+
         return req.bod.customer_ID
     }
     else{ 

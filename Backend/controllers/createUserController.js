@@ -2,7 +2,7 @@ const { PrismaClient } = require("../generate/prisma");
 const bcrypt = require("bcrypt");
 const prisma = new PrismaClient();
 const { v4: uuid } = require("uuid");
-const { setUser } = require("../tempStorage");
+
 const {sendOTP, sendEmailOTP, generateOTP, phoneOTPVerification} = require('../utils/otpFunctions')
 
 const unverified_Data_Map = new Map();
@@ -40,7 +40,8 @@ const createUser = async (req, res) => {
         email,
         phone,
         password: hashedPwd,
-        expires_in: Date.now() + 15 * 60 * 1000,
+
+        expiresIn: Date.now() + 15 * 60 * 1000,
       }
     );
     sendOTP(phone); //FILHAL BAND RAK RAHA HO FREE TRIAL EXPIRE HO JAYEGA
@@ -77,7 +78,7 @@ const verifyPhone = async (req, res) => {
   if (!unverified_user) {
     res.status(401).send({ error: "First fill the form" });
   }
-  if(unverified_user.expires_in < Date.now){
+  if(unverified_user.expiresIn < Date.now){
     deleteUnverifiedUserData(tempID)
     res.status(400).send({error : "otp Expired. Fill the form again"})
   }
@@ -85,14 +86,18 @@ const verifyPhone = async (req, res) => {
   console.log(verificationCheck.status);
   if(verificationCheck.status === 'approved'){
       try {
-        delete unverified_user.expires_in
-      await prisma.user.create({
+        delete unverified_user.expiresIn
+      const user = await prisma.user.create({
         data: getUniverifiedUser(tempID),
       });
       const sessionID = uuid()
       delete unverified_user.hashedPwd
       delete unverified_user.verified_phone
-      setUser(sessionID, unverified_user)
+      unverified_user.customerId = user.customerId; 
+      console.log(unverified_user)
+      await prisma.tempUser.create({
+        data: {...unverified_user,sessionID: sessionID, expiresIn: "time" }
+      })
       deleteUnverifiedUserData(tempID)
       res.cookie('sessionID', sessionID)
       res.cookie('tempID', '')
@@ -120,7 +125,7 @@ const verifyPhone = async (req, res) => {
 //   const tempID = req.cookies.tempID;
 //   let unverified_user = unverified_Data_Map.get(tempID);
  
-//   if(!unverified_user || unverified_user.expires_in < Date.now || !unverified_user.phone_verified
+//   if(!unverified_user || unverified_user.expiresIn < Date.now || !unverified_user.phone_verified
 //     || !unverified_user.email_OTP
 //   ){
 //     res.status(400).json({
