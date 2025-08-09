@@ -45,6 +45,21 @@ const ChatApp = () => {
   }, [userId, conversations, selectedChatIndex]);
 
   const handleSendMessage = async (message) => {
+    if (typeof message !== 'string') return;
+
+    if (
+      message.includes("Processing audio") ||
+      message.includes("couldn't process your audio")
+    ) {
+      // Just display, don't send to Rasa
+      const updatedChats = [...chats];
+      if (!updatedChats[selectedChatIndex]) updatedChats[selectedChatIndex] = [];
+      updatedChats[selectedChatIndex].push({ user: message });
+      setChats([...updatedChats]);
+      return;
+    }
+
+
     const updatedChats = [...chats];
 
     if (!updatedChats[selectedChatIndex]) {
@@ -74,19 +89,47 @@ const ChatApp = () => {
 
         console.log("Full response from backend:", response.data);
         
+        // Check if the response data is empty or undefined
+        if (!response.data || response.data.length === 0) {
+          updatedChats[selectedChatIndex].push({ bot: "⚠️ Sorry, something went wrong." });
+          setChats([...updatedChats]);
+          return;
+        }
+
         // The backend now returns the original RASA response format, but we're saving the combined text in the database
         // For immediate display, we need to combine the response parts here too
         let botResponse = 'No response';
+        let audioResponse = null;
+        let detectedLanguage = 'en';
+
         if (response.data && response.data.length > 0) {
             const textParts = response.data
                 .filter(part => part.text) // Only get parts with text
                 .map(part => part.text);
             botResponse = textParts.join('\n\n'); // Combine all parts
+            
+            // Find audio response info (should be the last item we added)
+            const audioInfo = response.data.find(part => part.hasOwnProperty('audio_response'));
+            if (audioInfo) {
+                audioResponse = audioInfo.audio_response;
+                detectedLanguage = audioInfo.language || 'en';
+            }
         }
-        
+
         console.log("Combined bot response:", botResponse);
-        
-        updatedChats[selectedChatIndex].push({ bot: botResponse });
+        console.log("Audio response:", audioResponse);
+
+        // Create bot message with audio URL if available
+        const botMessage = { 
+            bot: botResponse,
+            language: detectedLanguage
+        };
+
+        if (audioResponse) {
+            botMessage.audioUrl = `http://localhost:5001/audio/${audioResponse}`;
+        }
+
+        updatedChats[selectedChatIndex].push(botMessage);
         setChats([...updatedChats]);
         localStorage.setItem('chats', JSON.stringify(updatedChats)); // Store chats in localStorage
 
@@ -150,9 +193,43 @@ const ChatApp = () => {
     }
   };
 
+  const handleSendAudio = async (audioData) => {
+    const updatedChats = [...chats];
+    
+    if (!updatedChats[selectedChatIndex]) {
+      updatedChats[selectedChatIndex] = [];
+    }
+
+    // Remove loading message if it exists
+    const lastMessage = updatedChats[selectedChatIndex][updatedChats[selectedChatIndex].length - 1];
+    if (lastMessage && lastMessage.isLoading) {
+      updatedChats[selectedChatIndex].pop();
+    }
+
+    // Add user's transcribed message
+    updatedChats[selectedChatIndex].push({ 
+      user: `🎤 "${audioData.transcribed_text}"`,
+      language: audioData.language 
+    });
+
+    // Add bot response with audio
+    const audioUrl = audioData.audio_response 
+      ? `http://localhost:5001/audio/${audioData.audio_response}` 
+      : null;
+      
+    updatedChats[selectedChatIndex].push({ 
+      bot: audioData.bot_response,
+      audioUrl: audioUrl,
+      language: audioData.language
+    });
+
+    setChats([...updatedChats]);
+    localStorage.setItem('chats', JSON.stringify(updatedChats));
+  };
+
   const selectChat = (index) => {
     setSelectedChatIndex(index);
-    localStorage.setItem('selectedChatIndex', index); // Store selectedChatIndex in localStorage
+    localStorage.setItem('selectedChatIndex', index);
   };
 
   return (
@@ -167,6 +244,7 @@ const ChatApp = () => {
       <ChatWindow
         chat={chats[selectedChatIndex] || []}
         onSendMessage={handleSendMessage}
+        onSendAudio={handleSendAudio}
         conversationId={conversations[selectedChatIndex]?.conversationId}
       />
     </div>

@@ -29,6 +29,108 @@ stories:
   - intent: deny
   - action: utter_goodbye
 
+- story: banking services stories
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: open_account
+  - action: utter_open_account
+  - intent: affirm
+  - action: utter_happy
+
+- story: loan inquiry
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: apply_loan
+  - action: utter_apply_loan
+  - intent: loan_types
+  - action: utter_loan_types
+
+- story: balance check story
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: check_balance
+  - action: utter_check_balance
+  - intent: affirm
+  - action: utter_happy
+
+- story: card blocking story
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: block_card
+  - action: utter_block_card
+  - intent: affirm
+  - action: utter_happy
+
+- story: money transfer inquiry
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: neft_rtgs_info
+  - action: utter_neft_rtgs_info
+  - intent: affirm
+  - action: utter_did_that_help
+
+- story: account types inquiry
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: account_types
+  - action: utter_account_types
+  - intent: open_account
+  - action: utter_open_account
+
+- story: interest rates inquiry
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: interest_rates
+  - action: utter_interest_rates
+  - intent: affirm
+  - action: utter_happy
+
+- story: branch locator story
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: branch_locator
+  - action: utter_branch_locator
+  - intent: affirm
+  - action: utter_did_that_help
+
+- story: online banking story
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: online_banking
+  - action: utter_online_banking
+  - intent: affirm
+  - action: utter_happy
+
+- story: customer care story
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: customer_care
+  - action: utter_customer_care
+  - intent: affirm
+  - action: utter_happy
+
+- story: bot challenge story
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+  - intent: affirm
+  - action: utter_happy
+
+- story: say goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
 - story: greet and open account
   steps:
   - intent: greet

@@ -11,3 +11,58 @@ rules:
   steps:
   - intent: bot_challenge
   - action: utter_iamabot
+
+- rule: Account opening information
+  steps:
+  - intent: open_account
+  - action: utter_open_account
+
+- rule: Loan application information
+  steps:
+  - intent: apply_loan
+  - action: utter_apply_loan
+
+- rule: Balance check information
+  steps:
+  - intent: check_balance
+  - action: utter_check_balance
+
+- rule: Card blocking information
+  steps:
+  - intent: block_card
+  - action: utter_block_card
+
+- rule: NEFT RTGS information
+  steps:
+  - intent: neft_rtgs_info
+  - action: utter_neft_rtgs_info
+
+- rule: Account types information
+  steps:
+  - intent: account_types
+  - action: utter_account_types
+
+- rule: Loan types information
+  steps:
+  - intent: loan_types
+  - action: utter_loan_types
+
+- rule: Interest rates information
+  steps:
+  - intent: interest_rates
+  - action: utter_interest_rates
+
+- rule: Branch locator information
+  steps:
+  - intent: branch_locator
+  - action: utter_branch_locator
+
+- rule: Online banking information
+  steps:
+  - intent: online_banking
+  - action: utter_online_banking
+
+- rule: Customer care information
+  steps:
+  - intent: customer_care
+  - action: utter_customer_care

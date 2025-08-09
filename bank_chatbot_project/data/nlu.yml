@@ -3,51 +3,54 @@ version: "3.1"
 nlu:
 - intent: greet
   examples: |
-    - hey
-    - hello
     - hi
-    - hello there
+    - hello
+    - hey
     - good morning
-    - good evening
-    - moin
-    - hey there
-    - let's go
-    - hey dude
-    - goodmorning
-    - goodevening
     - good afternoon
+    - namaste
+    - नमस्ते
+    - हैलो
+    - नमस्कार
+    - સાત શ્રી અકાલ
 
 - intent: goodbye
   examples: |
-    - cu
-    - good by
-    - cee you later
-    - good night
     - bye
     - goodbye
-    - have a nice day
-    - see you around
-    - bye bye
     - see you later
+    - thank you bye
+    - धन्यवाद
+    - आपला दिवस चांगला जावो
+    - આવજો
 
+# Added missing intents
 - intent: affirm
   examples: |
     - yes
-    - y
-    - indeed
+    - yeah
+    - yep
+    - sure
     - of course
     - that sounds good
     - correct
+    - हाँ
+    - जी हाँ
+    - होय
+    - हां
 
 - intent: deny
   examples: |
     - no
-    - n
+    - nope
     - never
     - I don't think so
     - don't like that
     - no way
     - not really
+    - नहीं
+    - ना
+    - नाही
 
 - intent: mood_great
   examples: |
@@ -65,6 +68,9 @@ nlu:
     - so so perfect
     - so good
     - so perfect
+    - बहुत अच्छा
+    - बहुत बढ़िया
+    - खूप छान
 
 - intent: mood_unhappy
   examples: |
@@ -82,44 +88,151 @@ nlu:
     - extremly sad
     - so saad
     - so sad
-
-- intent: bot_challenge
-  examples: |
-    - are you a bot?
-    - are you a human?
-    - am I talking to a bot?
-    - am I talking to a human?
+    - उदास हूँ
+    - दुखी हूँ
+    - खराब लगता है
 
 - intent: open_account
   examples: |
-    - I want to open a bank account
-    - How to open a savings account?
-    - Help me with new account
-    - Nawa account kasa ughadaycha? # Marathi
-    - Mane account kholvu che # Gujarati
-    
+    - I want to open an account
+    - How to open a bank account
+    - Account opening process
+    - New account registration
+    - What documents needed for account
+    - खाता कैसे खोलें
+    - बैंक खाता खोलना है
+    - खाते खोलण्यासाठी काय लागते
+    - ખાતું કેવી રીતે ખોલવું
+    - account kholna hai
+    - navin khata
+
 - intent: apply_loan
   examples: |
     - I want to apply for a loan
-    - Can I get a personal loan?
-    - Loan chahiye mujhe
-    - I need the loan form
-    - Mala loan have aahe.  # Marathi
-    - Mari loan ni jarur chhe  # Gujarati
+    - How to get a loan
+    - Loan application process
+    - Personal loan chahiye
+    - Home loan details
+    - कर्ज कैसे मिलेगा
+    - लोन के लिए अप्लाई करना है
+    - कर्जासाठी अर्ज कसा करावा
+    - લોન કેવી રીતે મેળવવી
+    - education loan
+    - car loan
 
 - intent: check_balance
   examples: |
-    - How much is my account balance?
-    - Can you tell me my account balance?
-    - Majha account balance kay aahe?  # Marathi
-    - Mari account ni balance kai chhe?  # Gujarati
+    - Check my balance
+    - What is my account balance
+    - Balance enquiry
+    - Show balance
+    - मेरा बैलेंस कितना है
+    - खाते में कितने पैसे हैं
+    - बॅलन्स किती आहे
+    - બેલેન્સ કેટલું છે
+    - balance dekho
+    - paisa kitna hai
 
 - intent: block_card
   examples: |
-    - Block my ATM card
-    - My card is lost
-    - I want to block my debit card
-    - How do I block my credit card?
-    - Majha card haravla aahe. Kay karu? # Marathi
-    - Majha card block karaycha aahe # Marathi
-    - Mari card block karvu chhe # Gujarati
+    - Block my card
+    - I lost my card
+    - Card stolen
+    - Freeze my card
+    - ATM card block karna hai
+    - कार्ड खो गया है
+    - मेरा कार्ड चोरी हो गया
+    - कार्ड बंद करा
+    - કાર્ડ બ્લોક કરો
+    - debit card lost
+    - credit card stolen
+
+- intent: neft_rtgs_info
+  examples: |
+    - What is NEFT
+    - RTGS vs NEFT
+    - Difference between NEFT and RTGS
+    - Money transfer options
+    - NEFT कैसे करें
+    - RTGS क्या है
+    - पैसे कैसे भेजें
+    - NEFT आणि RTGS मध्ये काय फरक
+    - NEFT અને RTGS શું છે
+
+- intent: account_types
+  examples: |
+    - Types of bank accounts
+    - What accounts do you offer
+    - Savings vs current account
+    - Which account is best
+    - खाते के प्रकार
+    - कौन सा खाता बेहतर है
+    - खाते के प्रकार काय आहेत
+    - કયા પ્રકારના ખાતા છે
+    - salary account vs savings
+
+- intent: loan_types
+  examples: |
+    - Types of loans available
+    - What loans do you offer
+    - Personal loan vs home loan
+    - Business loan information
+    - कर्ज के प्रकार
+    - कौन सा लोन सबसे अच्छा है
+    - कर्जाचे प्रकार
+    - લોનના પ્રકાર
+    - education loan eligibility
+
+- intent: interest_rates
+  examples: |
+    - What are your interest rates
+    - Current interest rates
+    - Loan interest rates
+    - Fixed deposit rates
+    - ब्याज दर कितना है
+    - वर्तमान ब्याज दर
+    - व्याज दर किती आहे
+    - વ્યાજ દર કેટલો છે
+
+- intent: branch_locator
+  examples: |
+    - Find nearest branch
+    - Branch locations
+    - ATM near me
+    - Bank address
+    - नजदीकी शाखा कहां है
+    - ब्रांच का पता
+    - जवळची शाखा कुठे आहे
+    - નજીકની શાખા ક્યાં છે
+
+- intent: online_banking
+  examples: |
+    - How to use online banking
+    - Net banking registration
+    - Mobile banking app
+    - Digital banking services
+    - ऑनलाइन बैंकिंग कैसे करें
+    - नेट बैंकिंग रजिस्टर करना है
+    - ऑनलाइन बँकिंग कशी करावी
+    - ઓનલાઇન બેંકિંગ કેવી રીતે કરવી
+
+- intent: customer_care
+  examples: |
+    - Customer care number
+    - Help desk contact
+    - Complaint registration
+    - Support needed
+    - कस्टमर केयर का नंबर
+    - शिकायत दर्ज करनी है
+    - ग्राहक सेवा नंबर
+    - ગ્રાહક સેવા નંબર
+
+- intent: bot_challenge
+  examples: |
+    - are you a bot
+    - are you human
+    - who are you
+    - what are you
+    - तुम क्या हो
+    - तुम्ही कोण आहात
+    - તમે કોણ છો
