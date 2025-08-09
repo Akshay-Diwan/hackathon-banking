@@ -19,11 +19,13 @@ const kycdocumentController = async (req, res , component = false) => {
       pan_number,
     } = documents
     
-    const customer_ID = await prisma.tempUser.findUnique({
-      where: {
-        sessionID: req.cookies.sessionID
-      }
-    }).customerId;
+  const tempUser = await prisma.tempUser.findFirst({
+    where: {
+      sessionID: req.cookies.sessionID
+    }
+  });
+
+  const customer_ID = tempUser?.customerId
     console.log(customer_ID)
     const files = req.files;
 
@@ -72,33 +74,13 @@ const kycdocumentController = async (req, res , component = false) => {
     })
     // Store file info and fields (in DB or temp for now)
     const response = {
-      aadhaarNumber: aadhaar_number ? "XXXX-XXXX-" + aadhaar_number.slice(-4) : null,
-      pan_number,
-      has_address_proof,
-      filesUploaded: Object.keys(files),
-      addressLine1,
-      addressLine2,
-      addressLine3,
-      country,
-      state,
-      district,
-      city,
-      postalCode,
-      gender,
-      maritalStatus,
-      religion,
-      education,
-      occupation,
-      income,
-      fatherName,
-      motherName,
-      dependents,
-      birthDate
+      "success" : "Done"
     };
 
     return component? { success: "KYC submitted successfully", data: response } :res.status(200).json({ success: "KYC submitted successfully", data: response });
   }
   catch(err) {
+    console.log("THis")
     console.log(err);
     return component? { error: "KYC could not be submitted" } :res.status(500).json({ error: "KYC could not be submitted", data: err });
     

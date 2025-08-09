@@ -43,18 +43,20 @@ const UserLogin = (props) => {
       }),
     };
     
-    // const {data} = await axios.post(
+     const {data} = await axios.post(
+       (type === 'sign-up')?backendUrl + "/createUser/details": backendUrl +"/login",
+       formData,
+       { withCredentials: true }
+     );
 
-    //   (type === 'sign-up')?backendUrl + "/createUser/details": backendUrl +"/login",
-    //   formData,
-    //   { withCredentials: true }
-    // );
-
-    // if (data.success) {
-      navigate("/admin"); //Navigate only after success
-    // } else {
-    //   toast.error("Failed to send OTP");
-    // }
+     if (data.success && type === 'sign-up') {
+      navigate("/email-verify"); //Navigate only after success
+     }
+     else if(data.success){
+      navigate("/admin")
+     } else {
+       toast.error("Failed to send OTP");
+     }
   } catch (err) {
 
     console.error(err);

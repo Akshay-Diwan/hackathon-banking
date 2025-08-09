@@ -2,26 +2,21 @@ const { PrismaClient } = require('../generate/prisma')
 const bcrypt =  require('bcrypt')
 const prisma = new PrismaClient()
 const {v4: uuid} = require('uuid')
-const {setUser, deleteTempUserData} = require('../tempStorage')
+// const {setUser, deleteTempUserData} = require('../tempStorage')
 const handleLogin = async (req, res)=>{
-    const email = req.body.email;
     const phone = req.body.phone;
     const password = req.body.password;
     let user;
     try{
+        console.log("Inside Login")
+        console.log(req.body)
     if(!password){
         res.status(401).json({"error": "Credentials required"})
         console.log("Credentials required")
         return
     }
-    if(email) {
-        user = await prisma.user.findUnique({
-            where: {
-                email: email
-            }
-        })
-    }
-    else if(phone){
+
+    if(phone){
          user = await prisma.user.findUnique({
             where: {
                 phone: phone
@@ -29,6 +24,7 @@ const handleLogin = async (req, res)=>{
         })
     }
     else{
+        console.log("Credentials required")
         res.status(401).json({"error": "Credentials required"})
         return
     }
@@ -37,8 +33,8 @@ const handleLogin = async (req, res)=>{
         //     expiresIn: '30m'
         // })
         const sessionID = uuid()
-        deleteTempUserData(sessionID)
-        setUser(sessionID,{name: user.name,email: user.email,phone: user.phone})
+        // deleteTempUserData(sessionID)
+        // setUser(sessionID,{name: user.name,email: user.email,phone: user.phone})
         res.cookie("sessionID", sessionID, {
             httpOnly : false,
             secure: false,
@@ -46,12 +42,13 @@ const handleLogin = async (req, res)=>{
         })
         
         res.status(200).json({
+            success: true,
             name: user.name,
-            email: user.email,
             phone: user.phone,
         })
     }
     else{
+        console.log("Invalid credentials")
         res.status(401).json({"error": "invalid credentials"})
     }
 }

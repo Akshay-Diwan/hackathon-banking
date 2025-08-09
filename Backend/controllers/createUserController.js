@@ -40,7 +40,6 @@ const createUser = async (req, res) => {
         email,
         phone,
         password: hashedPwd,
-
         expiresIn: Date.now() + 15 * 60 * 1000,
       }
     );
@@ -90,6 +89,8 @@ const verifyPhone = async (req, res) => {
       const user = await prisma.user.create({
         data: getUniverifiedUser(tempID),
       });
+      console.log(user)
+
       const sessionID = uuid()
       delete unverified_user.hashedPwd
       delete unverified_user.verified_phone

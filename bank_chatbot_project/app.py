@@ -15,7 +15,7 @@ import dotenv
 import re
 import psycopg2
 import psycopg2.extras
-from IndicTransToolkit.langTrans import Translator
+# from IndicTransToolkit.langTrans import Translator
 # PostgreSQL setup
 db_config = {
     'user': 'postgres',
@@ -30,8 +30,8 @@ def get_pg_connection():
 dotenv.load_dotenv()
 
 app = Flask(__name__)
-CORS(app, supports_credentials=True, origins=["http://localhost:5173"])  # Enable CORS for all routes
-translator = Translator()
+CORS(app, supports_credentials=True, origins=["http://localhost:5173", "http://localhost:5175"])  # Enable CORS for all routes
+# translator = Translator()
 # # MySQL setup
 # db_config = {
 #     'user': 'root',
@@ -458,18 +458,18 @@ def delete_conversation():
 
     return jsonify({"message": "Conversation and associated audio files deleted."})
 
-@app.route('/translate', methods = ['POST'])
-def translate_text():
-    data = request.get_json()
-    text = data.get('text')
-    src_lang = data.get('src_lang')
-    tgt_lang = data.get('tgt_lang')
+# @app.route('/translate', methods = ['POST'])
+# def translate_text():
+#     data = request.get_json()
+#     text = data.get('text')
+#     src_lang = data.get('src_lang')
+#     tgt_lang = data.get('tgt_lang')
 
-    if not text or not src_lang or not tgt_lang:
-         return jsonify({"error": "Missing required fields"}), 400
+#     if not text or not src_lang or not tgt_lang:
+#          return jsonify({"error": "Missing required fields"}), 400
 
-    output = translator.translate(text, src_lang, tgt_lang)
-    return jsonify({"translated_text": output})
+#     output = translator.translate(text, src_lang, tgt_lang)
+#     return jsonify({"translated_text": output})
 
 
 if __name__ == '__main__': 
