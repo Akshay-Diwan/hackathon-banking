@@ -12,6 +12,7 @@ from langdetect import detect
 import io
 from pydub import AudioSegment
 import dotenv
+import re
 
 # Load environment variables
 dotenv.load_dotenv()
@@ -33,6 +34,38 @@ RASA_SERVER_URL = "http://localhost:5005/webhooks/rest/webhook"
 AUDIO_DIR = "audio_files"
 if not os.path.exists(AUDIO_DIR):
     os.makedirs(AUDIO_DIR)
+
+def remove_emojis(text):
+    """Remove emojis and other unwanted characters from text for TTS"""
+    # Remove emojis using regex
+    emoji_pattern = re.compile("["
+        u"\U0001F600-\U0001F64F"  # emoticons
+        u"\U0001F300-\U0001F5FF"  # symbols & pictographs
+        u"\U0001F680-\U0001F6FF"  # transport & map symbols
+        u"\U0001F1E0-\U0001F1FF"  # flags (iOS)
+        u"\U00002500-\U00002BEF"  # chinese char
+        u"\U00002702-\U000027B0"
+        u"\U00002702-\U000027B0"
+        u"\U000024C2-\U0001F251"
+        u"\U0001f926-\U0001f937"
+        u"\U00010000-\U0010ffff"
+        u"\u2640-\u2642" 
+        u"\u2600-\u2B55"
+        u"\u200d"
+        u"\u23cf"
+        u"\u23e9"
+        u"\u231a"
+        u"\ufe0f"  # dingbats
+        u"\u3030"
+        "]+", flags=re.UNICODE)
+    
+    # Remove emojis
+    text = emoji_pattern.sub(r'', text)
+    
+    # Clean up extra spaces and newlines
+    text = re.sub(r'\s+', ' ', text).strip()
+    
+    return text
 
 # Language detection mapping
 LANGUAGE_MAPPING = {
@@ -91,7 +124,12 @@ def text_to_speech(text, language='en'):
         }
         
         tts_lang = gtts_lang_map.get(language, 'en')
-        tts = gTTS(text=text, lang=tts_lang, slow=False)
+        # Clean text for TTS (remove emojis)
+        clean_text = remove_emojis(text)
+        if not clean_text.strip():  # If nothing left after cleaning, use fallback
+            clean_text = "Response received"
+        
+        tts = gTTS(text=clean_text, lang=tts_lang, slow=False)
         
         # Generate unique filename
         audio_filename = f"response_{uuid.uuid4()}.mp3"
@@ -102,6 +140,7 @@ def text_to_speech(text, language='en'):
     except Exception as e:
         print(f"Text-to-speech error: {e}")
         return None
+
 
 @app.route('/chat', methods=['POST'])
 def chat():
@@ -154,13 +193,12 @@ def chat():
     save_chat_to_db(user_id, conversation_id, user_message, bot_text, detected_language, audio_filename)
 
 
-    # Return response with audio filename
+    # Return response with audio filename - always include audio info
     response_data = bot_response.copy() if bot_response else []
-    if audio_filename:
-        response_data.append({
-            "audio_response": audio_filename,
-            "language": detected_language
-        })
+    response_data.append({
+        "audio_response": audio_filename,  # This will be None if TTS failed, but that's fine
+        "language": detected_language
+    })
 
     return jsonify(response_data)
 
@@ -305,7 +343,7 @@ def get_chat_history(user_id, conversation_id):
     conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor(dictionary=True)
     cursor.execute("""
-        SELECT user_message, bot_response, language
+        SELECT user_message, bot_response, language, audio_file, timestamp
         FROM messages
         WHERE conversation_id = %s
         ORDER BY timestamp ASC

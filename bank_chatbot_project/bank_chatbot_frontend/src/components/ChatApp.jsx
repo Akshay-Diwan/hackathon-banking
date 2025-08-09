@@ -99,16 +99,37 @@ const ChatApp = () => {
         // The backend now returns the original RASA response format, but we're saving the combined text in the database
         // For immediate display, we need to combine the response parts here too
         let botResponse = 'No response';
+        let audioResponse = null;
+        let detectedLanguage = 'en';
+
         if (response.data && response.data.length > 0) {
             const textParts = response.data
                 .filter(part => part.text) // Only get parts with text
                 .map(part => part.text);
             botResponse = textParts.join('\n\n'); // Combine all parts
+            
+            // Find audio response info (should be the last item we added)
+            const audioInfo = response.data.find(part => part.hasOwnProperty('audio_response'));
+            if (audioInfo) {
+                audioResponse = audioInfo.audio_response;
+                detectedLanguage = audioInfo.language || 'en';
+            }
         }
-        
+
         console.log("Combined bot response:", botResponse);
-        
-        updatedChats[selectedChatIndex].push({ bot: botResponse });
+        console.log("Audio response:", audioResponse);
+
+        // Create bot message with audio URL if available
+        const botMessage = { 
+            bot: botResponse,
+            language: detectedLanguage
+        };
+
+        if (audioResponse) {
+            botMessage.audioUrl = `http://localhost:5001/audio/${audioResponse}`;
+        }
+
+        updatedChats[selectedChatIndex].push(botMessage);
         setChats([...updatedChats]);
         localStorage.setItem('chats', JSON.stringify(updatedChats)); // Store chats in localStorage
 

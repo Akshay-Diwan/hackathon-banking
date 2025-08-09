@@ -7,6 +7,8 @@ const ChatWindow = ({ chat = [], onSendMessage, onSendAudio, conversationId }) =
   const [isPlaying, setIsPlaying] = useState(false);
   const [audioInstance, setAudioInstance] = useState(null);
   const [currentAudioUrl, setCurrentAudioUrl] = useState(null);
+  const [audioDuration, setAudioDuration] = useState(0);
+  const [audioCurrentTime, setAudioCurrentTime] = useState(0);
   const messagesEndRef = useRef(null);
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
@@ -114,6 +116,12 @@ const ChatWindow = ({ chat = [], onSendMessage, onSendAudio, conversationId }) =
     }
   };
 
+  const formatTime = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
+
   const playAudio = (audioUrl) => {
     // If same audio is playing, stop it
     if (isPlaying && currentAudioUrl === audioUrl) {
@@ -122,6 +130,8 @@ const ChatWindow = ({ chat = [], onSendMessage, onSendAudio, conversationId }) =
       setIsPlaying(false);
       setAudioInstance(null);
       setCurrentAudioUrl(null);
+      setAudioCurrentTime(0);
+      setAudioDuration(0);
       return;
     }
 
@@ -134,14 +144,22 @@ const ChatWindow = ({ chat = [], onSendMessage, onSendAudio, conversationId }) =
     const audio = new Audio(audioUrl);
     setAudioInstance(audio);
     setCurrentAudioUrl(audioUrl);
-    setIsPlaying(true);
 
-    audio.play();
+    audio.onloadedmetadata = () => {
+      setAudioDuration(audio.duration);
+      setAudioCurrentTime(audio.duration);
+    };
+
+    audio.ontimeupdate = () => {
+      setAudioCurrentTime(audio.duration - audio.currentTime);
+    };
 
     audio.onended = () => {
       setIsPlaying(false);
       setAudioInstance(null);
       setCurrentAudioUrl(null);
+      setAudioCurrentTime(0);
+      setAudioDuration(0);
     };
 
     audio.onerror = () => {
@@ -149,7 +167,12 @@ const ChatWindow = ({ chat = [], onSendMessage, onSendAudio, conversationId }) =
       setIsPlaying(false);
       setAudioInstance(null);
       setCurrentAudioUrl(null);
+      setAudioCurrentTime(0);
+      setAudioDuration(0);
     };
+
+    setIsPlaying(true);
+    audio.play();
   };
 
 
@@ -187,13 +210,20 @@ const ChatWindow = ({ chat = [], onSendMessage, onSendAudio, conversationId }) =
                     
                     {/* Audio playback button */}
                     {msg.audioUrl && (
-                      <div className="mt-2">
+                      <div className="mt-2 flex items-center gap-3">
                         <button
                           onClick={() => playAudio(msg.audioUrl)}
                           className="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded text-sm flex items-center gap-2"
                         >
                           {isPlaying && currentAudioUrl === msg.audioUrl ? '⏹️ Stop' : '🔊 Play Audio'}
                         </button>
+                        
+                        {/* Timer display */}
+                        {currentAudioUrl === msg.audioUrl && audioDuration > 0 && (
+                          <span className="text-sm text-purple-400 bg-purple-900 px-2 py-1 rounded font-mono">
+                            {formatTime(audioCurrentTime)}
+                          </span>
+                        )}
                       </div>
                     )}
                     
