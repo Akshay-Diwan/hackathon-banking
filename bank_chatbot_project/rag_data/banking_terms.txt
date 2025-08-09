@@ -1,0 +1,35 @@
+Banking Terms and Definitions
+
+Account Number: A unique identifier assigned to each bank account for transaction purposes.
+
+Annual Percentage Rate (APR): The yearly interest rate charged on borrowed money or earned on invested money.
+
+ATM (Automated Teller Machine): A computerized telecommunications device that enables bank customers to perform financial transactions without human interaction.
+
+Balance: The amount of money in a bank account at any given time.
+
+Credit Score: A numerical rating that represents a person's creditworthiness based on their credit history.
+
+Debit Card: A plastic payment card that deducts money directly from a customer's checking account.
+
+Direct Deposit: An electronic payment method where funds are transferred directly into a bank account.
+
+EMI (Equated Monthly Installment): Fixed monthly payment made by a borrower to repay a loan.
+
+IFSC (Indian Financial System Code): An 11-digit alphanumeric code that identifies bank branches for electronic payment transactions.
+
+Interest Rate: The percentage of principal charged by the lender for the use of its money.
+
+KYC (Know Your Customer): A process of verifying customer identity and assessing potential risks.
+
+NEFT (National Electronic Funds Transfer): A payment system for transferring funds between banks in India.
+
+Overdraft: A facility that allows account holders to withdraw money even when their account balance is zero or insufficient.
+
+Principal: The initial amount of money borrowed in a loan or invested.
+
+RTGS (Real Time Gross Settlement): A payment system for high-value transactions processed in real-time.
+
+Standing Instruction: An automated instruction to transfer funds from one account to another on specified dates.
+
+UPI (Unified Payments Interface): An instant payment system that allows money transfer between bank accounts through mobile apps.

@@ -28,7 +28,9 @@ const ChatApp = () => {
 
           const formattedData = data.map(chat => ({
             user: chat.user_message,
-            bot: chat.bot_response
+            bot: chat.bot_response,
+            audioUrl: chat.audio_file ? `http://localhost:5001/audio/${chat.audio_file}` : null,
+            language: chat.language || 'en'
           }));
 
           const updatedChats = [...chats];
@@ -120,13 +122,14 @@ const ChatApp = () => {
         console.log("Audio response:", audioResponse);
 
         // Create bot message with audio URL if available
+        // Create the bot message object with audio if available
+        // Create the bot message object with audio if available
         const botMessage = { 
             bot: botResponse,
             language: detectedLanguage
         };
-
-        if (audioResponse) {
-            botMessage.audioUrl = `http://localhost:5001/audio/${audioResponse}`;
+        if (audioInfo && audioInfo.audio_response) {
+            botMessage.audioUrl = `http://localhost:5001/audio/${audioInfo.audio_response}`;
         }
 
         updatedChats[selectedChatIndex].push(botMessage);

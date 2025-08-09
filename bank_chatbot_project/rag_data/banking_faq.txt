@@ -1,0 +1,31 @@
+Banking FAQ - Sample Document
+
+Q: What are the different types of bank accounts available?
+A: We offer various types of accounts including Savings Account, Current Account, Fixed Deposit, Recurring Deposit, and Salary Account. Each account type has different features and benefits tailored to specific needs.
+
+Q: How can I check my account balance?
+A: You can check your account balance through multiple ways: Online Banking portal, Mobile Banking app, ATM machines, SMS banking by sending BAL to 9876543210, or by visiting any branch.
+
+Q: What is the minimum balance requirement for a savings account?
+A: The minimum balance requirement varies by account type. For regular savings accounts, it's ₹1,000 for rural branches, ₹2,500 for semi-urban branches, and ₹5,000 for urban branches.
+
+Q: How do I block my debit card if it's lost or stolen?
+A: Immediately call our 24/7 customer care helpline at 1800-233-4526 or use the mobile banking app to block your card. You can also visit the nearest branch with proper identification.
+
+Q: What are the charges for fund transfers?
+A: NEFT transfers are free for amounts above ₹2 lakhs. For amounts below ₹2 lakhs, charges range from ₹2.50 to ₹25 based on the amount. RTGS charges vary from ₹30 to ₹55 depending on the transfer amount.
+
+Q: How can I apply for a personal loan?
+A: You can apply for a personal loan online through our website, mobile app, or by visiting any branch. Required documents include identity proof, address proof, income proof, and bank statements for the last 6 months.
+
+Q: What is the interest rate for fixed deposits?
+A: Fixed deposit interest rates vary based on the tenure and amount. Current rates range from 5.50% to 7.25% per annum. Senior citizens get an additional 0.50% interest rate.
+
+Q: How do I update my mobile number linked to my account?
+A: Visit your home branch with a written request, fill the mobile number change form, and provide your registered mobile number verification. You'll need to carry your account passbook and valid ID proof.
+
+Q: What are the different loan types available?
+A: We offer Home Loans, Personal Loans, Car Loans, Education Loans, Business Loans, and Gold Loans. Each loan type has different eligibility criteria, interest rates, and repayment terms.
+
+Q: How can I activate internet banking?
+A: Internet banking can be activated by visiting your branch with account details and ID proof, or through ATM using your debit card and PIN. You'll receive login credentials through registered mobile and email.
