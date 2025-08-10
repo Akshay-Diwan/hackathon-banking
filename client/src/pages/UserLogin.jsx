@@ -8,9 +8,9 @@ import { AppContext } from "../context/AppContext";
 
 
 const UserLogin = (props) => {
-  const flowOfSpeech = ["First Name", "Last Name"];
-  const flowOfInput = [setFirstName, setLastName];
-  const [count, setCount] = useState(0)
+  // const flowOfSpeech = ["First Name", "Last Name"];
+  // const flowOfInput = [setFirstName, setLastName];
+  const [count, setCount] = useState(0);
   const { backendUrl} = useContext(AppContext);
   const navigate = useNavigate();
   const [type, setType] = useState(props.signUp?'sign-up':'sign-in')
@@ -25,52 +25,50 @@ const UserLogin = (props) => {
   const [lastName, setLastName] = useState('')
 
   //Speech
-    const [listening, setListening] = useState(false);
+    // const [listening, setListening] = useState(false);
 
   // Browser SpeechRecognition setup
-  const SpeechRecognition =
-    window.SpeechRecognition || window.webkitSpeechRecognition;
+  // const SpeechRecognition =
+  //   window.SpeechRecognition || window.webkitSpeechRecognition;
 
-  const recognition = new SpeechRecognition();
+  // const recognition = new SpeechRecognition();
 
-  recognition.continuous = false; // We only want one input
-  recognition.lang = 'en-US'; // Set language
-  recognition.interimResults = false; // Only final results
-  recognition.maxAlternatives = 1;
+  // recognition.continuous = false; // We only want one input
+  // recognition.lang = 'en-US'; // Set language
+  // recognition.interimResults = false; // Only final results
+  // recognition.maxAlternatives = 1;
 
-   const handleVoiceInput = () => {
-    speakText()
-    if (!SpeechRecognition) {
-      alert('Speech Recognition not supported in your browser');
-      return;
-    }
+  //  const handleVoiceInput = () => {
+  //   speakText()
+  //   if (!SpeechRecognition) {
+  //     alert('Speech Recognition not supported in your browser');
+  //     return;
+  //   }
 
-    setListening(true);
-    recognition.start();
+  //   setListening(true);
+  //   recognition.start();
 
-    recognition.onresult = (event) => {
-      const spokenName = event.results[0][0].transcript;
-      setFirstName(spokenName);
-      setListening(false);
-    };
+  //   recognition.onresult = (event) => {
+  //     const spokenName = event.results[0][0].transcript;
+  //     setFirstName(spokenName);
+  //     setListening(false);
+  //   };
 
-    recognition.onerror = (event) => {
-      console.error('Speech recognition error:', event.error);
-      setListening(false);
-    };
+  //   recognition.onerror = (event) => {
+  //     console.error('Speech recognition error:', event.error);
+  //     setListening(false);
+  //   };
 
-    recognition.onend = () => {
-      setListening(false);
-    };
-  };
-   const speakText = () => {
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'en-US'; // Set language
-    speechSynthesis.speak(utterance);
-  };
-  const startVoiceEnabled = ()=> {
-    
-  }
+  //   recognition.onend = () => {
+  //     setListening(false);
+  //   };
+  // };
+  //  const speakText = (text) => {
+  //   const utterance = new SpeechSynthesisUtterance(text);
+  //   utterance.lang = 'en-US'; // Set language
+  //   speechSynthesis.speak(utterance);
+  // };
+ 
 
   
   const handleSubmit = async (e) => {
@@ -94,18 +92,20 @@ const UserLogin = (props) => {
       }),
     };
     
-    // const {data} = await axios.post(
+     const {data} = await axios.post(
 
-    //   (type === 'sign-up')?backendUrl + "/createUser/details": backendUrl +"/login",
-    //   formData,
-    //   { withCredentials: true }
-    // );
+       (type === 'sign-up')?backendUrl + "/createUser/details": backendUrl +"/login",
+       formData,
+       { withCredentials: true }
+     );
 
-    // if (data.success) {
+     if (data.success && type === 'sign-up') {
+      navigate("/email-verify"); //Navigate only after success
+     }else if(data.success){
       navigate("/admin"); //Navigate only after success
-    // } else {
-    //   toast.error("Failed to send OTP");
-    // }
+     }else {
+       toast.error("Failed to send OTP");
+     }
   } catch (err) {
 
     console.error(err);
@@ -120,7 +120,7 @@ const UserLogin = (props) => {
     <div className={`min-h-screen ${type === 'sign-in' && 'flex items-center'} w-full bg-[url('userbg.jpg')] bg-cover bg-center bg-fixed `}>
       
     <section className="relative auth-form px-6 border-2 rounded-2xl bg-white backdrop-blur-md shadow-[0_0_20px_rgba(25,192,254,2.5)] border-cyan-600 py-10 max-w-110 max-md:mx-auto max-md:mt mx-10">
-       <button
+       {/* <button
        onClick={handleVoiceInput}
       disabled={listening}
       className={`absolute bottom-0 right-0 w-15 h-15 text-2xl text-white py-2 rounded-full transition duration-200 ${
@@ -129,8 +129,8 @@ const UserLogin = (props) => {
       : 'bg-blue-600 hover:bg-blue-700 cursor-pointer'
   }`}
 >
-  {listening ? 'Listening...' : '🎙️'}
-</button>
+  {/* {'🔊':listening ? 'Listening...' : '🎙️'} */}
+{/* </button> */} 
       <header className="flex flex-col gap-5 mb-6 ">
         <Link to="/" className="flex items-center gap-2">
           <img src={assets.bankofmaha} alt="Bank logo" className="w-110 mx-auto" />

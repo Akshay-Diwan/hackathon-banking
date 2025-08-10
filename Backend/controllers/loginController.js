@@ -2,7 +2,7 @@ const { PrismaClient } = require('../generate/prisma')
 const bcrypt =  require('bcrypt')
 const prisma = new PrismaClient()
 const {v4: uuid} = require('uuid')
-const {setUser, deleteTempUserData} = require('../tempStorage')
+// const {setUser, deleteTempUserData} = require('../tempStorage')
 const handleLogin = async (req, res)=>{
     const email = req.body.email;
     const phone = req.body.phone;
@@ -37,8 +37,11 @@ const handleLogin = async (req, res)=>{
         //     expiresIn: '30m'
         // })
         const sessionID = uuid()
-        deleteTempUserData(sessionID)
-        setUser(sessionID,{name: user.name,email: user.email,phone: user.phone})
+        // deleteTempUserData(sessionID)
+        
+        await prisma.tempUser.create({
+        data: {sessionID,password: user.password, customerId: user.customerId, name: user.name,email: user.email,phone: user.phone, expiresIn: "time"},
+      })
         res.cookie("sessionID", sessionID, {
             httpOnly : false,
             secure: false,

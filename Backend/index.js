@@ -28,28 +28,28 @@ app.use(express.json());
 app.use(cookieParser())
 app.use(express.urlencoded({extended: false}))
 
-const http = require("http");
-const socketIo = require("socket.io");
+// const http = require("http");
+// const socketIo = require("socket.io");
 
-const server = http.createServer(app);
-const io = socketIo(server, { cors: { origin: "*" } });
+// const server = http.createServer(app);
+// const io = socketIo(server, { cors: { origin: "*" } });
 
-io.on("connection", (socket) => {
-  socket.on("offer", (data) => {
-    socket.to(data.roomId).emit("offer", data.offer);
-  });
-  socket.on("answer", (data) => {
-    socket.to(data.roomId).emit("answer", data.answer);
-  });
-  socket.on("ice-candidate", (data) => {
-    socket.to(data.roomId).emit("ice-candidate", data);
-  });
-  socket.on("join", (roomId) => {
-    socket.join(roomId);
-  });
-});
+// io.on("connection", (socket) => {
+//   socket.on("offer", (data) => {
+//     socket.to(data.roomId).emit("offer", data.offer);
+//   });
+//   socket.on("answer", (data) => {
+//     socket.to(data.roomId).emit("answer", data.answer);
+//   });
+//   socket.on("ice-candidate", (data) => {
+//     socket.to(data.roomId).emit("ice-candidate", data);
+//   });
+//   socket.on("join", (roomId) => {
+//     socket.join(roomId);
+//   });
+// });
 
-server.listen(8080, () => console.log("Server running on port 8080"));
+// server.listen(4000, () => console.log("Server running on port 8000"));
 
 // Request Logging
 // app.use(reqLogger)
