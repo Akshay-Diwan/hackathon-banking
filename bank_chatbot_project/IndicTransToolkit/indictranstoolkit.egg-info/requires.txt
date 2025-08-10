@@ -1,0 +1,5 @@
+cython
+sacremoses
+transformers
+sacrebleu
+indic-nlp-library-itt

@@ -119,7 +119,7 @@ const PersonalPayment = () => {
   }
 
   return (
-    <div>
+    <>
       <AdminTitle
         text={t('personalPayment.title')}
         description={t('personalPayment.description')}
@@ -254,7 +254,6 @@ const PersonalPayment = () => {
         <input name="contact" value={formData.contact} onChange={handleChange}
           className="input w-full p-2 outline-none text-[15px] border border-gray-700/40 rounded " placeholder="+91XXXXXXXXXX or email" />
       </div> */}
-      </div>
 
         <hr className="text-gray-400  w-312 mx-[-20px]" />
 
@@ -275,6 +274,7 @@ const PersonalPayment = () => {
               className="input w-full p-2 px-3 outline-none text-[15px] border border-gray-700/40 rounded "
               placeholder={t('personalPayment.amountPlaceholder')}
             />
+          </div>
           </div>
 
           <div className="flex max-md:flex-col gap-2 items-center">
@@ -346,7 +346,7 @@ const PersonalPayment = () => {
               <span className="ml-auto">{t('personalPayment.requestOtp')}</span>
             </button>
           </div>
-        </div>
+        
       <div className='flex max-md:flex-col gap-2 items-center'>
         <label className="block text-[16px] w-50 max-md:ml-[-120px] font-medium text-gray-500">Enter OTP :-</label>
         <input name="otp" value={formData.otp} onChange={handleChange}
@@ -356,7 +356,7 @@ const PersonalPayment = () => {
           </button>
       </div>
 
-      </div>
+     
 
         <button
           type="submit"
@@ -392,7 +392,8 @@ const PersonalPayment = () => {
           )}
         </button>
       </form>
-    </div>
+      </>
+   
   );
 };
 
