@@ -1,79 +1,71 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const SavingAccount = () => {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
-
-    const savingTypes = [
-  {
-    id: "basic-savings",
-    name: "Basic Savings Account",
-    minBalance: "Zero or minimal",
-    description:
-      "A standard savings account suitable for individuals and minors (with guardian). No minimum balance for certain categories. Online/offline opening available.",
-  },
-  {
-    id: "lok-bachat",
-    name: "Lok Bachat Yojana",
-    minBalance: "No minimum balance",
-    description:
-      "Designed for low-income customers/BPL. Can be opened with as low as ₹1 or ₹0.",
-  },
-  {
-    id: "yuva-yojana",
-    name: "Mahabank Yuva Yojana",
-    minBalance: "Zero balance",
-    description:
-      "For youth aged 10–18. Free debit card, fund transfers from parent, utility payments.",
-  },
-  {
-    id: "royal-savings",
-    name: "Royal Savings Account",
-    minBalance: "₹100,000 MAB",
-    description:
-      "For individuals, HUFs, associations, trusts. Zero opening, high benefit account with relationship manager and insurance.",
-  },
-  {
-    id: "purple-savings",
-    name: "Purple Savings Account",
-    minBalance: "₹300,000 MAB",
-    description:
-      "For ultra‑HNI individuals. Zero opening, personalized chequebook, insurance cover, high limits.",
-  },
-  {
-    id: "smart-sb",
-    name: "BoM Smart SB Scheme (BSS‑15 / BSS‑25)",
-    minBalance: "AQB ₹15,000 or ₹25,000",
-    description:
-      "Two variants (BSS‑15 and BSS‑25); free RuPay debit cards; varying cheque leaves; no AMC; free NEFT/RTGS.",
-  },
-  {
-    id: "salary-account",
-    name: "Salary & Supreme Payroll Schemes",
-    minBalance: "Zero balance",
-    description:
-      "Designed for employers/organizations. Zero‑balance account with free debit cards, accident cover, unlimited banking.",
-  },
-];
+  const savingTypes = [
+    {
+      id: "basic-savings",
+      name: t("savingAccount.basicSavings.name"),
+      minBalance: t("savingAccount.basicSavings.minBalance"),
+      description: t("savingAccount.basicSavings.description"),
+    },
+    {
+      id: "lok-bachat",
+      name: t("savingAccount.lokBachat.name"),
+      minBalance: t("savingAccount.lokBachat.minBalance"),
+      description: t("savingAccount.lokBachat.description"),
+    },
+    {
+      id: "yuva-yojana",
+      name: t("savingAccount.yuvaYojana.name"),
+      minBalance: t("savingAccount.yuvaYojana.minBalance"),
+      description: t("savingAccount.yuvaYojana.description"),
+    },
+    {
+      id: "royal-savings",
+      name: t("savingAccount.royalSavings.name"),
+      minBalance: t("savingAccount.royalSavings.minBalance"),
+      description: t("savingAccount.royalSavings.description"),
+    },
+    {
+      id: "purple-savings",
+      name: t("savingAccount.purpleSavings.name"),
+      minBalance: t("savingAccount.purpleSavings.minBalance"),
+      description: t("savingAccount.purpleSavings.description"),
+    },
+    {
+      id: "smart-sb",
+      name: t("savingAccount.smartSB.name"),
+      minBalance: t("savingAccount.smartSB.minBalance"),
+      description: t("savingAccount.smartSB.description"),
+    },
+    {
+      id: "salary-account",
+      name: t("savingAccount.salaryAccount.name"),
+      minBalance: t("savingAccount.salaryAccount.minBalance"),
+      description: t("savingAccount.salaryAccount.description"),
+    },
+  ];
 
   return (
     <div className="p-8 max-w-4xl mt-20 mx-auto space-y-8">
-      <h1 className="text-3xl text-blue-500 font-bold">Bank of Maharashtra Savings Accounts</h1>
-      <p>
-        Explore different savings deposit schemes tailored to varied needs —
-        from youth and no balance to HNI and salary-linked accounts.
-      </p>
+      <h1 className="text-3xl text-blue-500 font-bold">{t("savingAccount.heading")}</h1>
+      <p>{t("savingAccount.subheading")}</p>
 
       <div className="space-y-6">
         {savingTypes.map((type) => (
           <div
-           key={type.id}
-           onClick={() => navigate(`/new-account/${type.id}`)} 
-           className="bg-white group hover:shadow-lg p-6 rounded-lg shadow cursor-pointer">
-            <h2 className="text-2xl  group-hover:text-blue-600 font-semibold mb-2">{type.name}</h2>
+            key={type.id}
+            onClick={() => navigate(`/new-account/${type.id}`)}
+            className="bg-white group hover:shadow-lg p-6 rounded-lg shadow cursor-pointer"
+          >
+            <h2 className="text-2xl group-hover:text-blue-600 font-semibold mb-2">{type.name}</h2>
             <p className="text-gray-700 mb-1">
-              <strong>Minimum Balance:</strong> {type.minBalance}
+              <strong>{t("savingAccount.minBalanceLabel")}:</strong> {type.minBalance}
             </p>
             <p className="text-gray-600">{type.description}</p>
           </div>
@@ -81,32 +73,20 @@ const SavingAccount = () => {
       </div>
 
       <section className="pt-8 border-t">
-        <h2 className="text‑2xl font-semibold mb-2">Common Details</h2>
+        <h2 className="text-2xl font-semibold mb-2">{t("savingAccount.commonDetails.heading")}</h2>
         <ul className="list-disc list-inside space-y-2 text-gray-700">
-          <li>Applicable interest: ~2.75% p.a. on daily balances, credited quarterly. :contentReference[oaicite:1]</li>
-          <li>
-            Eligibility: Resident individuals (singly/jointly), minors (with guardian),
-            HUFs, trusts, associations, NRIs. :contentReference[oaicite:2]
-          </li>
-          <li>
-            Documents Needed: Identity proof, Address proof, PAN/Form 60‑61, 2 passport photos; or introducer if missing ID/address. :contentReference[oaicite:3]
-          </li>
-          <li>
-            If minimum (monthly average) balance not maintained, charges are levied quarterly. BV not applicable for localized types (Lok Bachat, pension, salary etc.). 
-            :contentReference[oaicite:4]
-          </li>
+          <li>{t("savingAccount.commonDetails.applicableInterest")}</li>
+          <li>{t("savingAccount.commonDetails.eligibility")}</li>
+          <li>{t("savingAccount.commonDetails.documentsNeeded")}</li>
+          <li>{t("savingAccount.commonDetails.balanceCharges")}</li>
         </ul>
       </section>
 
       <section className="pt-8 border-t">
-        <h2 className="text-2xl font-semibold mb-2">Additional Services</h2>
+        <h2 className="text-2xl font-semibold mb-2">{t("savingAccount.additionalServices.heading")}</h2>
         <ul className="list-disc list-inside space-y-2 text-gray-700">
-          <li>
-            Fixed Deposit, Recurring Deposit, Mahasanchay Plan, Tax-saving Term Deposits also offered. Loan against deposit/FD facility up to 90% loanable. :contentReference[oaicite:5]
-          </li>
-          <li>
-            NRI Savings under “NonResident Ordinary Account” scheme allows NRI/PIO to open Rupee savings/current/term deposit accounts. :contentReference[oaicite:6]
-          </li>
+          <li>{t("savingAccount.additionalServices.fixedDeposit")}</li>
+          <li>{t("savingAccount.additionalServices.nriSavings")}</li>
         </ul>
       </section>
     </div>

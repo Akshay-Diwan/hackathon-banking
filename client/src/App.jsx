@@ -2,6 +2,7 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import './i18n';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import AboutUs from './pages/AboutUs';
 import Careers from './pages/Careers';
@@ -10,13 +11,13 @@ import UserLogin from './pages/UserLogin';
 import LocateUs from './pages/LocateUs';
 import EmailVerify from './pages/EmailVerify';
 import HomePage from './pages/HomePage';
-import Layout from './pages/Admin/Layout';
-import Dashboard from './pages/Admin/Dashboard';
-import Accounts from './pages/Admin/Accounts';
-import MyDetails from './pages/Admin/MyDetails';
+
+import Dashboard from './pages/admin/Dashboard';
+import Accounts from './pages/admin/Accounts';
+import MyDetails from './pages/admin/MyDetails';
 import PaymentTransfer from './pages/admin/Payment/PaymentTransfer';
-import Transactions from './pages/Admin/Transactions';
-import HelpSupport from './pages/Admin/HelpSupport';
+import Transactions from './pages/admin/Transactions';
+import HelpSupport from './pages/admin/HelpSupport';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import { Toaster } from 'react-hot-toast';
@@ -45,6 +46,9 @@ import CreditCardPayment from './components/admin/Payment/CreditCardPayment';
 import DebitCardPayment from './components/admin/Payment/DebitCardPayment';
 import PaymentSuccess from './components/admin/Payment/PaymentSuccess';
 import LoadingPage from './components/LoadingPage';
+import AdminVideoPage from './pages/AdminVideoPage';
+import UserCallPage from './pages/UserCallPage';
+import Layout from './pages/admin/Layout';
 import PageNotFound from './pages/pageNotFound';
 import ChatApp from './components/ChatApp'
 import { LogIn } from 'lucide-react';
@@ -76,6 +80,8 @@ function App() {
          <Route path = '/email-verify' element = {<EmailVerify/>} />
          <Route path = '/locate-us' element = {<LocateUs/>} />
          <Route path = '/loading' element = {<LoadingPage/>} />
+         <Route path = '/admin-call' element = {<AdminVideoPage/>} />
+         <Route path = "/user-call" element = {<UserCallPage/>} />
          
          <Route path="/new-account" >
           <Route index element={<SelectNewAccount />}/>

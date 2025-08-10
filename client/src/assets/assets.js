@@ -4,6 +4,7 @@ import currentaccount from "./currentaccount.jpg"
 import savingaccount from "./savingsaccount.webp"
 import studentaccount from "./studentaccount.jpg"
 import minoraccount from "./minoraccount.jpg"
+import bankofmahalegasy from "./bankofmahalegasy.jpeg"
 
 export const assets = {
     bankofmaha,
@@ -11,5 +12,6 @@ export const assets = {
     currentaccount,
     savingaccount,
     studentaccount,
-    minoraccount
+    minoraccount,
+    bankofmahalegasy
 }

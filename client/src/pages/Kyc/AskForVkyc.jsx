@@ -35,7 +35,7 @@ const AskForVkyc = () => {
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <button
-          onClick={() => navigate("/call-us")} 
+          onClick={() => navigate("/user-call")} 
           className="bg-blue-600 cursor-pointer text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-all">
             Call Now
           </button>

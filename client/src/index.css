@@ -17,3 +17,9 @@
 .animate-borderPulse {
   animation: borderPulse 1.2s infinite;
 }
+
+@media (max-width: 768px) {
+  .hide-on-mobile {
+    display: none;
+  }
+}

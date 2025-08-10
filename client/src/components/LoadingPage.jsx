@@ -6,7 +6,7 @@ const LoadingPage = () => {
 
   // Messages to show during loading
   const messages = [
-    "Verifying UPI ID...",
+    "Verifying User...",
     "Connecting to Bank Servers...",
     "Processing Transaction Securely...",
     "Finalizing Payment...",
