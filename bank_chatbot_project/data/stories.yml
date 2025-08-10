@@ -1,10 +1,14 @@
 version: "3.1"
 
 stories:
+# Remove the conflicting stories that were duplicating rules
+# - story: set language on any message (REMOVED)
+# - story: set language for other intents (REMOVED)
 
 - story: happy path
   steps:
   - intent: greet
+  - action: action_set_language_slot
   - action: utter_greet
   - intent: mood_great
   - action: utter_happy
@@ -12,6 +16,7 @@ stories:
 - story: sad path 1
   steps:
   - intent: greet
+  - action: action_set_language_slot
   - action: utter_greet
   - intent: mood_unhappy
   - action: utter_cheer_up
@@ -22,6 +27,7 @@ stories:
 - story: sad path 2
   steps:
   - intent: greet
+  - action: action_set_language_slot
   - action: utter_greet
   - intent: mood_unhappy
   - action: utter_cheer_up
@@ -32,6 +38,7 @@ stories:
 - story: banking services stories
   steps:
   - intent: greet
+  - action: action_set_language_slot
   - action: utter_greet
   - intent: open_account
   - action: utter_open_account
@@ -41,6 +48,7 @@ stories:
 - story: loan inquiry
   steps:
   - intent: greet
+  - action: action_set_language_slot
   - action: utter_greet
   - intent: apply_loan
   - action: utter_apply_loan
@@ -50,6 +58,7 @@ stories:
 - story: balance check story
   steps:
   - intent: greet
+  - action: action_set_language_slot
   - action: utter_greet
   - intent: check_balance
   - action: utter_check_balance
@@ -59,6 +68,7 @@ stories:
 - story: card blocking story
   steps:
   - intent: greet
+  - action: action_set_language_slot
   - action: utter_greet
   - intent: block_card
   - action: utter_block_card
@@ -68,6 +78,7 @@ stories:
 - story: money transfer inquiry
   steps:
   - intent: greet
+  - action: action_set_language_slot
   - action: utter_greet
   - intent: neft_rtgs_info
   - action: utter_neft_rtgs_info
@@ -77,6 +88,7 @@ stories:
 - story: account types inquiry
   steps:
   - intent: greet
+  - action: action_set_language_slot
   - action: utter_greet
   - intent: account_types
   - action: utter_account_types
@@ -86,6 +98,7 @@ stories:
 - story: interest rates inquiry
   steps:
   - intent: greet
+  - action: action_set_language_slot
   - action: utter_greet
   - intent: interest_rates
   - action: utter_interest_rates
@@ -95,6 +108,7 @@ stories:
 - story: branch locator story
   steps:
   - intent: greet
+  - action: action_set_language_slot
   - action: utter_greet
   - intent: branch_locator
   - action: utter_branch_locator
@@ -104,6 +118,7 @@ stories:
 - story: online banking story
   steps:
   - intent: greet
+  - action: action_set_language_slot
   - action: utter_greet
   - intent: online_banking
   - action: utter_online_banking
@@ -113,6 +128,7 @@ stories:
 - story: customer care story
   steps:
   - intent: greet
+  - action: action_set_language_slot
   - action: utter_greet
   - intent: customer_care
   - action: utter_customer_care
@@ -134,6 +150,7 @@ stories:
 - story: greet and open account
   steps:
   - intent: greet
+  - action: action_set_language_slot
   - action: utter_greet
   - intent: open_account
   - action: utter_open_account
@@ -153,6 +170,7 @@ stories:
 - story: greet and apply loan
   steps:
   - intent: greet
+  - action: action_set_language_slot
   - action: utter_greet
   - intent: apply_loan
   - action: utter_apply_loan
@@ -174,6 +192,7 @@ stories:
 - story: greet and check balance
   steps:
   - intent: greet
+  - action: action_set_language_slot
   - action: utter_greet
   - intent: check_balance
   - action: utter_check_balance
@@ -198,6 +217,7 @@ stories:
 - story: greet and block card
   steps:
   - intent: greet
+  - action: action_set_language_slot
   - action: utter_greet
   - intent: block_card
   - action: utter_block_card
@@ -214,6 +234,7 @@ stories:
 - story: multiple services conversation
   steps:
   - intent: greet
+  - action: action_set_language_slot
   - action: utter_greet
   - intent: open_account
   - action: utter_open_account
@@ -241,6 +262,7 @@ stories:
 - story: confused user - multiple intents
   steps:
   - intent: greet
+  - action: action_set_language_slot
   - action: utter_greet
   - intent: open_account
   - action: utter_open_account
@@ -259,6 +281,7 @@ stories:
 - story: user asks for loan after balance check
   steps:
   - intent: greet
+  - action: action_set_language_slot
   - action: utter_greet
   - intent: check_balance
   - action: utter_check_balance
@@ -277,6 +300,7 @@ stories:
 - story: polite account opening
   steps:
   - intent: greet
+  - action: action_set_language_slot
   - action: utter_greet
   - intent: open_account
   - action: utter_open_account
@@ -288,6 +312,7 @@ stories:
 - story: banking services overview
   steps:
   - intent: greet
+  - action: action_set_language_slot
   - action: utter_greet
   - intent: open_account
   - action: utter_open_account

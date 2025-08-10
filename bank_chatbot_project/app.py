@@ -26,19 +26,12 @@ db_config = {
 
 def get_pg_connection():
     return psycopg2.connect(**db_config)
+
 # Load environment variables
 dotenv.load_dotenv()
 
 app = Flask(__name__)
-CORS(app, supports_credentials=True, origins=["http://localhost:5173"])  # Enable CORS for all routes
-
-# # MySQL setup
-# db_config = {
-#     'user': 'root',
-#     'password': os.getenv('PASS_KEY'),
-#     'host': 'localhost',
-#     'database': 'bank_chatbot'
-
+CORS(app, supports_credentials=True, origins=["http://localhost:5173"])
 
 RASA_SERVER_URL = "http://localhost:5005/webhooks/rest/webhook"
 
@@ -49,7 +42,6 @@ if not os.path.exists(AUDIO_DIR):
 
 def remove_emojis(text):
     """Remove emojis and other unwanted characters from text for TTS"""
-    # Remove emojis using regex
     emoji_pattern = re.compile("["
         u"\U0001F600-\U0001F64F"  # emoticons
         u"\U0001F300-\U0001F5FF"  # symbols & pictographs
@@ -71,12 +63,8 @@ def remove_emojis(text):
         u"\u3030"
         "]+", flags=re.UNICODE)
     
-    # Remove emojis
     text = emoji_pattern.sub(r'', text)
-    
-    # Clean up extra spaces and newlines
     text = re.sub(r'\s+', ' ', text).strip()
-    
     return text
 
 # Language detection mapping
@@ -90,12 +78,35 @@ LANGUAGE_MAPPING = {
 def detect_language(text):
     """Detect language from text and map to supported languages"""
     try:
+        print(f"[DEBUG] Detecting language for text: {text}")
+        
+        # First check for script-based detection
+        # Check for Devanagari script (Hindi/Marathi)
+        if any('\u0900' <= char <= '\u097F' for char in text):
+            print("[DEBUG] Devanagari script detected")
+            # Try to distinguish between Hindi and Marathi
+            marathi_chars = ['\u0902', '\u0903', '\u0945', '\u0949', '\u094A', '\u094B', '\u094C']
+            if any(char in text for char in marathi_chars):
+                print("[DEBUG] Detected as Marathi")
+                return 'mr'
+            print("[DEBUG] Detected as Hindi")
+            return 'hi'
+        
+        # Check for Gujarati script
+        if any('\u0A80' <= char <= '\u0AFF' for char in text):
+            print("[DEBUG] Detected as Gujarati")
+            return 'gu'
+            
+        # Fallback to langdetect
         detected = detect(text)
-        return LANGUAGE_MAPPING.get(detected, 'en')  # Default to English
-    except:
+        mapped_lang = LANGUAGE_MAPPING.get(detected, 'en')
+        print(f"[DEBUG] langdetect result: {detected}, mapped to: {mapped_lang}")
+        return mapped_lang
+    except Exception as e:
+        print(f"[DEBUG] Language detection error: {e}, defaulting to English")
         return 'en'
 
-def speech_to_text(audio_file_path, language='en-IN'):
+def speech_to_text(audio_file_path, language='en'):
     """Convert speech to text using Google Speech Recognition"""
     recognizer = sr.Recognizer()
     
@@ -111,12 +122,23 @@ def speech_to_text(audio_file_path, language='en-IN'):
             'gu': ['gu-IN']
         }
         
-        for lang_code in language_codes.get(language, ['en-IN']):
+        # Try the detected language first, then fallback to others
+        codes_to_try = language_codes.get(language, ['en-IN'])
+        
+        # Also try Hindi if language detection failed or gave English
+        if language == 'en':
+            codes_to_try.extend(['hi-IN', 'mr-IN'])
+        
+        for lang_code in codes_to_try:
             try:
+                print(f"[DEBUG] Trying speech recognition with: {lang_code}")
                 text = recognizer.recognize_google(audio, language=lang_code)
+                print(f"[DEBUG] Speech recognition result: {text}")
                 detected_lang = detect_language(text)
+                print(f"[DEBUG] Final detected language: {detected_lang}")
                 return text, detected_lang
             except sr.UnknownValueError:
+                print(f"[DEBUG] Speech recognition failed for {lang_code}")
                 continue
         
         return None, None
@@ -153,15 +175,17 @@ def text_to_speech(text, language='en'):
         print(f"Text-to-speech error: {e}")
         return None
 
-
 @app.route('/chat', methods=['POST'])
 def chat():
     data = request.json
-    print(f"Received data: {data}")  # Log incoming data
+    print(f"Received data: {data}")
     user_message = data.get("message")
     user_id = data.get("user_id")
-    conversation_id = data.get("conversation_id")  # Conversation ID
-    detected_language = data.get("language", "en")  # Language from frontend
+    conversation_id = data.get("conversation_id")
+    
+    # FIXED: Properly detect language from the message text
+    detected_language = detect_language(user_message) if user_message else "en"
+    print(f"Final detected language for chat: {detected_language}")
 
     if not user_message or not user_id or not conversation_id:
         return jsonify({"error": "No message, user_id, or conversation_id provided"}), 400
@@ -175,7 +199,10 @@ def chat():
         json={
             "sender": user_id, 
             "message": user_message,
-            "metadata": {"language": detected_language}
+            "metadata": {
+                "language": detected_language,
+                "preferred_language": detected_language
+            }
         }
     )
 
@@ -204,11 +231,10 @@ def chat():
     # Save chat to database with language info
     save_chat_to_db(user_id, conversation_id, user_message, bot_text, detected_language, audio_filename)
 
-
-    # Return response with audio filename - always include audio info
+    # Return response with audio filename
     response_data = bot_response.copy() if bot_response else []
     response_data.append({
-        "audio_response": audio_filename,  # This will be None if TTS failed, but that's fine
+        "audio_response": audio_filename,
         "language": detected_language
     })
 
@@ -228,14 +254,6 @@ def audio_chat():
         if not user_id or not conversation_id:
             return jsonify({"error": "Missing user_id or conversation_id"}), 400
         
-        # Save uploaded audio temporarily
-        #temp_audio_path = os.path.join(AUDIO_DIR, f"temp_{uuid.uuid4()}.wav")
-        #audio_file.save(temp_audio_path)
-        # Convert speech to text
-        #user_message, detected_language = speech_to_text(temp_audio_path)
-        # Clean up temp file
-        #os.remove(temp_audio_path)
-
         # Save the webm file temporarily
         webm_path = os.path.join(AUDIO_DIR, f"temp_{uuid.uuid4()}.webm")
         audio_file.save(webm_path)
@@ -244,8 +262,8 @@ def audio_chat():
         wav_path = os.path.join(AUDIO_DIR, f"temp_{uuid.uuid4()}.wav")
         AudioSegment.from_file(webm_path).export(wav_path, format="wav")
 
-        # Now use wav_path for speech recognition
-        user_message, detected_language = speech_to_text(wav_path)
+        # FIXED: Call speech_to_text with default language parameter
+        user_message, detected_language = speech_to_text(wav_path, 'en')  # Start with 'en' but will try multiple languages
 
         # Cleanup
         try:
@@ -253,7 +271,6 @@ def audio_chat():
             os.remove(wav_path)
         except Exception as e:
             print(f"[WARN] Cleanup failed: {e}")
-
         
         if not user_message:
             return jsonify({"error": "Could not understand audio"}), 400
@@ -289,7 +306,10 @@ def chat_internal(data):
         json={
             "sender": user_id, 
             "message": user_message,
-            "metadata": {"language": detected_language}
+            "metadata": {
+                "language": detected_language,
+                "preferred_language": detected_language
+            }
         }
     )
 
@@ -323,7 +343,7 @@ def chat_internal(data):
         "rasa_response": bot_response
     }
 
-    return jsonify()
+    return jsonify(response_data)
 
 @app.route('/audio/<filename>')
 def serve_audio(filename):
@@ -349,7 +369,6 @@ def save_chat_to_db(user_id, conversation_id, user_message, bot_response, langua
     cursor.close()
     conn.close()
     print(f"Saved chat to DB: user_id={user_id}, conversation_id={conversation_id}, language={language}, audio_file={audio_file}")
-
 
 def get_chat_history(user_id, conversation_id):
     conn = get_pg_connection()
@@ -448,7 +467,6 @@ def delete_conversation():
                 except Exception as e:
                     print(f"[WARN] Failed to delete audio file: {audio_path} | Error: {e}")
 
-
     # Now delete chatbot.messages and conversation
     cursor.execute("DELETE FROM chatbot.messages WHERE conversation_id = %s", (conversation_id,))
     cursor.execute("DELETE FROM chatbot.conversations WHERE conversation_id = %s", (conversation_id,))
@@ -457,7 +475,6 @@ def delete_conversation():
     conn.close()
 
     return jsonify({"message": "Conversation and associated audio files deleted."})
-
 
 if __name__ == '__main__': 
     app.run(host='0.0.0.0', port=5001, debug=True)

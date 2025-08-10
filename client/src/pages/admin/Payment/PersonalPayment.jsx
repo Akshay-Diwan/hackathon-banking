@@ -65,6 +65,11 @@ const PersonalPayment = () => {
       await worker.load();
       await worker.loadLanguage('eng');
       await worker.initialize('eng');
+      await worker.setParameters({
+          tessedit_pageseg_mode: '6', // Assume a single uniform block of text
+          preserve_interword_spaces: '1', // Preserve spacing for tabular data
+          tessedit_char_whitelist: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789:/.-', // Limit to expected characters
+      })
       const { data: { text } } = await worker.recognize(imageFile);
       setOcrText(text);
       parseOCRText(text);

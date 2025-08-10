@@ -236,3 +236,10 @@ nlu:
     - तुम क्या हो
     - तुम्ही कोण आहात
     - તમે કોણ છો
+
+- intent: nlu_fallback
+  examples: |
+    - I'm not sure
+    - I don't understand
+    - can you rephrase that?
+    - I don't know what you mean
