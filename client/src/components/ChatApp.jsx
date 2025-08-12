@@ -257,7 +257,7 @@ setIsOpen((prev) => !prev);
       )}
   
       {isOpen && (
-        <div className="fixed bottom-6 right-6 w-110 max-w-[80vw] h-[500px] bg-[#ff7b005c] border border-gray-300 rounded-xl shadow-2xl flex flex-col z-50">
+        <div className="fixed bottom-6 right-6 w-110 max-w-[80vw] h-[500px] bg-[#5794c4f3] border border-gray-300 rounded-xl shadow-2xl flex flex-col z-50">
           {/* Header */}
           <div className="bg-blue-600 text-white px-4 py-3 rounded-t-xl flex justify-between items-center">
             <h3 className="text-sm font-semibold">BankBot Assistant</h3>

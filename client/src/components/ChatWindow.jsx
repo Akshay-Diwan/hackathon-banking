@@ -196,9 +196,9 @@ const ChatWindow = ({ chat = [], onSendMessage, onSendAudio, conversationId }) =
             <div key={index} className="message-pair">
               <div className='py-2 flex justify-end'>
                 {msg.user && (
-                  <div className="user-message bg-[#3C3D37] p-4 rounded-full inline-block max-w-full">
+                  <div className="user-message bg-[#0b27b3] p-4 rounded-full inline-block max-w-full">
                     <strong className='text-purple-300'>User:</strong> 
-                    <span className="ml-2">{typeof msg.user === 'string' ? msg.user : JSON.stringify(msg.user)}</span>
+                    <span className="ml-2 text-white">{typeof msg.user === 'string' ? msg.user : JSON.stringify(msg.user)}</span>
                   </div>
                 )}
               </div>
